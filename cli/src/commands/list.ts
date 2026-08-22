@@ -1,8 +1,8 @@
 import { scanMachine } from "../lib/scan.js";
-import { loadManifest, type Manifest } from "../lib/manifest.js";
+import { applyExclusions, loadManifest, type Manifest } from "../lib/manifest.js";
 import { UserError, emitJson, heading, line, note, table } from "../lib/out.js";
 import { dim, green, yellow } from "../lib/ansi.js";
-import { DEAD_CANDIDATES } from "../lib/classify.js";
+import { DEAD_CANDIDATES, DEFAULT_EXCLUDE } from "../lib/classify.js";
 import type { Parsed } from "../lib/cli.js";
 
 const TYPES = ["skill", "agent", "plugin", "marketplace", "hook", "mcp"] as const;
@@ -30,12 +30,14 @@ export async function runList(opts: Parsed): Promise<number> {
   }
   const manifest = await loadManifest();
   const inv = overlayTags(await scanMachine(), manifest);
+  const excluded = applyExclusions(inv, manifest?.exclude ?? DEFAULT_EXCLUDE);
   const want = (t: Type) => !opts.type || opts.type === t;
 
   if (opts.json) {
     emitJson({
       ok: true,
       source: manifest ? "scan+manifest" : "scan",
+      excluded,
       counts: {
         skills: Object.keys(inv.skills).length,
         agents: Object.keys(inv.agents).length,
@@ -55,6 +57,7 @@ export async function runList(opts: Parsed): Promise<number> {
   }
 
   if (!manifest) note("Sin manifest todavía: los tags son la clasificación semilla. Corré `skills init`.");
+  if (excluded > 0) note(`${excluded} ítem(s) fuera por el campo \`exclude\` del manifest.`);
 
   if (want("skill")) {
     heading(`Skills (${Object.keys(inv.skills).length})`);

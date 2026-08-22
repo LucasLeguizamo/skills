@@ -5,9 +5,10 @@ import { promisify } from "node:util";
 import { findRepoRoot } from "../lib/paths.js";
 import { listDirs, listFiles, readJson, readText, writeJson, findSkillFile, exists } from "../lib/fsx.js";
 import { parseFrontmatter, splitDescription, firstSentence } from "../lib/frontmatter.js";
-import { loadManifest, type Manifest } from "../lib/manifest.js";
+import { isExcluded, loadManifest, type Manifest } from "../lib/manifest.js";
 import { UserError, emitJson, heading, line, note, table } from "../lib/out.js";
 import { cyan, green } from "../lib/ansi.js";
+import { DEFAULT_EXCLUDE } from "../lib/classify.js";
 import type { Parsed } from "../lib/cli.js";
 
 const exec = promisify(execFile);
@@ -52,7 +53,10 @@ interface PluginFile {
 
 export interface BuildResult {
   registry: Registry;
+  /** Degradados a vendor/unknown en el manifest: se nombran. */
   excluded: Array<{ slug: string; type: string; tag: string }>;
+  /** Apartados por el campo `exclude`: sólo se cuentan, no se nombran. */
+  excludedByRule: number;
 }
 
 /**
@@ -75,6 +79,13 @@ export async function buildRegistry(repoRoot: string, manifest: Manifest | null)
   const ref = process.env.SKILLS_REF ?? "main";
   const items: RegistryItem[] = [];
   const excluded: BuildResult["excluded"] = [];
+  const exclude = manifest?.exclude ?? DEFAULT_EXCLUDE;
+  let excludedByRule = 0;
+  const skip = (kind: string, name: string): boolean => {
+    if (!isExcluded(exclude, kind, name)) return false;
+    excludedByRule++;
+    return true;
+  };
   const slugs = new Set<string>();
   let marketplaceRepo = ownerRepo(mk.owner?.url ?? "");
 
@@ -101,6 +112,8 @@ export async function buildRegistry(repoRoot: string, manifest: Manifest | null)
     const install = `/plugin install ${pj.name}@${mk.name}`;
     const srcUrl = (p2: string) => (repoBase ? `${repoBase}/blob/${ref}/${p2}` : p2);
 
+    if (skip("plugin", pj.name)) continue;
+
     const pluginDesc = pj.description ?? declared.description ?? "";
     items.push({
       slug: claim(pj.name, "plugin"),
@@ -121,6 +134,7 @@ export async function buildRegistry(repoRoot: string, manifest: Manifest | null)
       if (!file) continue;
       const fm = parseFrontmatter((await readText(file)) ?? "").data;
       const name = fm.name ?? dirName;
+      if (skip("skill", name)) continue;
       const tag = effectiveTag(manifest, "skill", name);
       if (tag !== "mine") {
         excluded.push({ slug: name, type: "skill", tag });
@@ -145,6 +159,7 @@ export async function buildRegistry(repoRoot: string, manifest: Manifest | null)
       const agentFile = path.join(pluginDir, "agents", fileName);
       const fm = parseFrontmatter((await readText(agentFile)) ?? "").data;
       const name = fm.name ?? fileName.replace(/\.md$/, "");
+      if (skip("agent", name)) continue;
       const tag = effectiveTag(manifest, "agent", name);
       if (tag !== "mine") {
         excluded.push({ slug: name, type: "agent", tag });
@@ -180,6 +195,7 @@ export async function buildRegistry(repoRoot: string, manifest: Manifest | null)
       items,
     },
     excluded,
+    excludedByRule,
   };
 }
 
@@ -213,7 +229,7 @@ export async function runExport(opts: Parsed): Promise<number> {
     );
   }
   const manifest = await loadManifest();
-  const { registry, excluded } = await buildRegistry(repoRoot, manifest);
+  const { registry, excluded, excludedByRule } = await buildRegistry(repoRoot, manifest);
   const out = path.resolve(opts.out ?? path.join(repoRoot, "registry.json"));
 
   const before = (await exists(out)) ? await readText(out) : null;
@@ -221,7 +237,7 @@ export async function runExport(opts: Parsed): Promise<number> {
   const unchanged = before === JSON.stringify(registry, null, 2) + "\n";
 
   if (opts.json) {
-    emitJson({ ok: true, out, count: registry.items.length, unchanged, excluded, registry });
+    emitJson({ ok: true, out, count: registry.items.length, unchanged, excluded, excludedByRule, registry });
     return 0;
   }
 
@@ -234,6 +250,7 @@ export async function runExport(opts: Parsed): Promise<number> {
     heading("Excluidos (no son `mine` en el manifest)");
     table(excluded.map((e) => [e.slug, e.type, e.tag]));
   }
+  if (excludedByRule > 0) note(`${excludedByRule} ítem(s) fuera por el campo \`exclude\` del manifest.`);
   line();
   line(`${green(unchanged ? "sin cambios" : "escrito")} ${cyan(out)}`);
   note("Copialo a src/data/registry.json del portafolio y commitealo.");

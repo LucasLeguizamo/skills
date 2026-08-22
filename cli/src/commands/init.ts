@@ -1,6 +1,7 @@
 import { p } from "../lib/paths.js";
 import { scanMachine } from "../lib/scan.js";
 import {
+  applyExclusions,
   loadManifest,
   mergeSection,
   saveManifest,
@@ -8,12 +9,15 @@ import {
   type DiffEntry,
   type Manifest,
 } from "../lib/manifest.js";
+import { DEFAULT_EXCLUDE } from "../lib/classify.js";
 import { emitJson, heading, line, note, table } from "../lib/out.js";
 import { bold, cyan, dim, green, yellow } from "../lib/ansi.js";
 import type { Parsed } from "../lib/cli.js";
 
 export interface InitResult {
   ok: true;
+  /** Cuántos ítems dejó fuera el campo `exclude` del manifest. */
+  excluded: number;
   manifestPath: string;
   wrote: boolean;
   dryRun: boolean;
@@ -24,11 +28,26 @@ export interface InitResult {
 }
 
 /** Escaneo + merge. Sin efectos: `run` decide si escribe. */
-export async function planInit(): Promise<{ next: Manifest; previous: Manifest | null; diff: DiffEntry[] }> {
+export async function planInit(): Promise<{
+  next: Manifest;
+  previous: Manifest | null;
+  diff: DiffEntry[];
+  excluded: number;
+}> {
   const scanned = await scanMachine();
   const previous = await loadManifest();
   const diff: DiffEntry[] = [];
-  if (!previous) return { next: scanned, previous: null, diff };
+
+  // `exclude` es del usuario: si ya existe se respeta tal cual, no se ordena
+  // ni se completa. Sólo se siembra la primera vez.
+  const exclude = previous?.exclude ?? [...DEFAULT_EXCLUDE];
+  const excluded = applyExclusions(scanned, exclude);
+  scanned.exclude = exclude;
+
+  if (!previous) return { next: scanned, previous: null, diff, excluded };
+  // También sobre el manifest anterior: si no, el merge resucitaría como
+  // "declarado en otra máquina" algo que se acaba de excluir.
+  applyExclusions(previous, exclude);
 
   const next: Manifest = {
     ...scanned,
@@ -38,11 +57,11 @@ export async function planInit(): Promise<{ next: Manifest; previous: Manifest |
     plugins: mergeSection("plugin", previous.plugins ?? {}, scanned.plugins, diff),
     marketplaces: mergeSection("marketplace", previous.marketplaces ?? {}, scanned.marketplaces, diff),
   };
-  return { next, previous, diff };
+  return { next, previous, diff, excluded };
 }
 
 export async function runInit(opts: Parsed): Promise<number> {
-  const { next, previous, diff } = await planInit();
+  const { next, previous, diff, excluded } = await planInit();
   const changed = !previous || !sameManifest(previous, next);
   if (changed) next.generatedAt = new Date().toISOString();
 
@@ -64,6 +83,7 @@ export async function runInit(opts: Parsed): Promise<number> {
 
   const result: InitResult = {
     ok: true,
+    excluded,
     manifestPath: p.manifest(),
     wrote,
     dryRun: opts.dryRun,
@@ -93,14 +113,18 @@ export async function runInit(opts: Parsed): Promise<number> {
   line(
     `${green("mine")} ${counts.mine}   ${dim("vendor")} ${counts.vendor}   ${yellow("unknown")} ${counts.unknown}`,
   );
+  if (excluded > 0) note(`${excluded} ítem(s) fuera por el campo \`exclude\` del manifest.`);
 
   if (!previous) {
     heading("Primera vez");
     note("No había manifest: se escribe uno nuevo con la clasificación semilla de AUDIT.md.");
     note("Revisá los `unknown` y editá su `tag` a mano; el próximo init respeta tu edición.");
-  } else if (diff.length === 0) {
+  } else if (!changed) {
     heading("Sin cambios");
     note("El manifest ya refleja esta máquina.");
+  } else if (diff.length === 0) {
+    heading("Cambios");
+    note("Fuera de skills/agentes/plugins/marketplaces: hooks, MCP o el campo `exclude`.");
   } else {
     heading(`Cambios (${diff.length})`);
     table(

@@ -131,9 +131,14 @@ Escribe ~/.claude/skills.json. Es no destructivo:
 De los valores de los servidores MCP sólo se guardan los NOMBRES de las
 variables de entorno. Ningún secreto entra al manifest.
 
+El array \`exclude\` del manifest apaga ítems que no querés gestionar todavía:
+\`["mcp:n8n"]\`, o el nombre pelado. Lo excluido no entra al manifest, no sale
+en \`list\` y no se exporta. \`init\` lo siembra la primera vez y después no lo
+toca nunca: es tuyo.
+
 Opciones
   --dry-run    imprime el diff y no escribe nada
-  --json       { ok, manifest, diff, wrote, backup }`,
+  --json       { ok, manifest, diff, wrote, backup, excluded }`,
 
   list: `skills list — inventario de esta máquina.
 
@@ -143,18 +148,22 @@ Escanea ~/.claude en vivo y, si existe el manifest, superpone sus tags: la
 lista dice lo que hay instalado hoy, con la clasificación que vos aprobaste.
 No escribe nada. Funciona aunque nunca hayas corrido \`init\`.
 
+Lo que esté en el array \`exclude\` del manifest no se muestra: sólo se informa
+cuántos ítems quedaron fuera.
+
 Columnas: nombre · tag · origen · versión.
 
 Opciones
   --type <t>   filtra por tipo
-  --json       { ok, source, counts, skills, agents, plugins, marketplaces, hooks, mcpServers }`,
+  --json       { ok, source, excluded, counts, skills, agents, plugins,
+                       marketplaces, hooks, mcpServers }`,
 
   export: `skills export — emite registry.json para lucasleguizamo.com/stack.
 
 Uso: skills export [--out <archivo>] [--json]
 
 Toma el manifest y las SKILL.md / agentes de plugins/lucas-core y emite un
-JSON con SÓLO lo tageado "mine". El portafolio genera páginas estáticas desde
+JSON con SÓLO lo tageado "mine", menos lo que apague el array \`exclude\`. El portafolio genera páginas estáticas desde
 ese archivo, así que el esquema es un contrato:
 
   { version, generatedAt,
@@ -174,7 +183,7 @@ exportar dos veces produce bytes idénticos.
 
 Opciones
   --out <f>    destino (por defecto <repo>/registry.json)
-  --json       { ok, out, count, unchanged, excluded, registry }`,
+  --json       { ok, out, count, unchanged, excluded, excludedByRule, registry }`,
 
   new: `skills new — andamiaje con el estándar del marketplace.
 

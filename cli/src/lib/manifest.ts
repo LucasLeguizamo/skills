@@ -73,6 +73,13 @@ export interface McpEntry {
 export interface Manifest {
   version: number;
   generatedAt: string;
+  /**
+   * Ítems que no se quieren gestionar todavía. Lo listado acá no entra al
+   * manifest, no aparece en `list` y no sale en `export`. Formato
+   * `<tipo>:<nombre>` (skill, agent, plugin, marketplace, mcp) o el nombre
+   * pelado. `init` nunca lo pisa: es una decisión del usuario.
+   */
+  exclude?: string[];
   marketplaces: Record<string, MarketplaceEntry>;
   plugins: Record<string, PluginEntry>;
   skills: Record<string, SkillEntry>;
@@ -85,6 +92,7 @@ export function emptyManifest(): Manifest {
   return {
     version: MANIFEST_VERSION,
     generatedAt: new Date(0).toISOString(),
+    exclude: [],
     marketplaces: {},
     plugins: {},
     skills: {},
@@ -98,7 +106,11 @@ export async function loadManifest(file = p.manifest()): Promise<Manifest | null
   if (!(await exists(file))) return null;
   const raw = await readJson<Partial<Manifest> | null>(file, null);
   if (!raw || typeof raw !== "object") return null;
-  return { ...emptyManifest(), ...raw } as Manifest;
+  const m = { ...emptyManifest(), ...raw } as Manifest;
+  // Un manifest viejo sin `exclude` no es lo mismo que uno con la lista
+  // vacía: el primero todavía no vio la semilla, el segundo la vació a mano.
+  if (!Array.isArray(raw.exclude)) delete m.exclude;
+  return m;
 }
 
 /** Respalda el manifest anterior y escribe el nuevo. Devuelve la ruta del respaldo. */
@@ -151,6 +163,39 @@ export function mergeSection<T extends { tag?: Tag }>(
     diff.push({ kind, name, change: "removed-from-disk" });
   }
   return sortKeys(out);
+}
+
+/** Las secciones del manifest que se pueden excluir, y su prefijo. */
+const EXCLUDABLE = {
+  skills: "skill",
+  agents: "agent",
+  plugins: "plugin",
+  marketplaces: "marketplace",
+  mcpServers: "mcp",
+} as const;
+
+export function isExcluded(exclude: string[] | undefined, kind: string, name: string): boolean {
+  if (!exclude?.length) return false;
+  return exclude.includes(name) || exclude.includes(`${kind}:${name}`);
+}
+
+/**
+ * Saca del inventario todo lo excluido. Devuelve cuántos ítems se fueron;
+ * los nombres no se reportan a propósito: si no se gestionan, no se enumeran.
+ */
+export function applyExclusions(m: Manifest, exclude: string[] | undefined): number {
+  if (!exclude?.length) return 0;
+  let n = 0;
+  for (const [section, kind] of Object.entries(EXCLUDABLE)) {
+    const bag = m[section as keyof typeof EXCLUDABLE] as Record<string, unknown>;
+    for (const name of Object.keys(bag)) {
+      if (isExcluded(exclude, kind, name)) {
+        delete bag[name];
+        n++;
+      }
+    }
+  }
+  return n;
 }
 
 export function sortKeys<T extends object>(obj: T): T {

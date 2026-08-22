@@ -50,6 +50,7 @@ Forma:
 {
   "version": 1,
   "generatedAt": "2026-08-22T03:16:19.073Z",
+  "exclude": ["mcp:n8n"],
   "marketplaces": { "<nombre>": { "tag", "sourceType", "origin", "ref?", "install" } },
   "plugins":      { "<plugin@marketplace>": { "tag", "marketplace", "plugin", "version",
                                               "scope", "commit", "enabled", "install" } },
@@ -73,6 +74,25 @@ La clasificación se deduce del lockfile (`~/.agents/.skill-lock.json`): lo que
 vino de un repo ajeno es `vendor`. Los veredictos humanos de `AUDIT.md` van
 como semilla. **El tag que edites a mano gana**: `init` lo conserva.
 
+### `exclude`: lo que todavía no se gestiona
+
+```jsonc
+"exclude": ["mcp:n8n", "skill:una-que-no-quiero"]
+```
+
+Array de ítems que quedan fuera de todo: no entran al manifest, no salen en
+`list` y no se exportan. Cada entrada es `<tipo>:<nombre>` — tipos válidos
+`skill`, `agent`, `plugin`, `marketplace`, `mcp` — o el nombre pelado, que
+apaga cualquier tipo que se llame así.
+
+- `init` lo **siembra** la primera vez (hoy: el servidor MCP `n8n`) y después
+  **no lo toca nunca**: el orden y el contenido son tuyos.
+- Si `init` vuelve a encontrar algo excluido, lo deja fuera en silencio; sólo
+  informa cuántos ítems quedaron afuera.
+- `list` y `export` hacen lo mismo: una línea con el conteo, sin nombres. Si
+  no se gestiona, no se enumera.
+- Para volver a gestionar algo, borrá su línea del array y corré `init`.
+
 ### Garantías de `init`
 
 - **Idempotente.** Si el manifest ya refleja la máquina, no escribe nada y lo dice.
@@ -89,7 +109,8 @@ como semilla. **El tag que edites a mano gana**: `init` lo conserva.
 ## El contrato de `registry.json`
 
 `skills export` recorre el marketplace del repo (`.claude-plugin/marketplace.json`)
-y sus plugins, y emite un JSON con **sólo lo tageado `mine`**. Es lo que
+y sus plugins, y emite un JSON con **sólo lo tageado `mine`** y no apagado por
+`exclude`. Es lo que
 consume `lucasleguizamo.com/stack` para generar páginas estáticas, así que el
 esquema es un contrato: romperlo rompe la web.
 
@@ -134,9 +155,10 @@ salen limpios.
 `generatedAt` es el `updatedAt` más reciente, no la hora del reloj: exportar
 dos veces sobre el mismo commit produce bytes idénticos y no ensucia el diff.
 
-Los ítems vienen ordenados por `type` y luego por `slug`. Un elemento se
-excluye si el manifest lo degradó a `vendor` o `unknown`; el comando los lista
-como `excluded`.
+Los ítems vienen ordenados por `type` y luego por `slug`. Un elemento se cae
+del registry por dos motivos: si el manifest lo degradó a `vendor` o
+`unknown` (el comando los nombra en `excluded`), o si está en `exclude` (sólo
+se cuentan, en `excludedByRule`).
 
 ## `skills new`
 

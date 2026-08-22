@@ -56,3 +56,10 @@ export function seedFor(kind: "skill" | "agent", name: string): Seed | undefined
 
 /** El marketplace propio: todo lo que salga de acá es `mine` por definición. */
 export const OWN_MARKETPLACE = "lucas";
+
+/**
+ * Semilla del campo `exclude` del manifest: lo que todavía no se quiere
+ * gestionar. Sólo se usa cuando no hay manifest previo; después manda el
+ * archivo, que `init` no pisa.
+ */
+export const DEFAULT_EXCLUDE: string[] = ["mcp:n8n"];

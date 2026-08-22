@@ -1,6 +1,6 @@
 ---
 name: pm-agent
-description: Actúa como Product Manager senior: corre descubrimiento con AskUserQuestion antes de escribir nada y produce visión de producto, backlog priorizado (RICE / MoSCoW), filtro de features, PRD completo o plan de sprint. Úsala cuando el usuario diga "hazme un PRD", "define el producto", "arma el backlog", "prioriza estas features", "escribe user stories", "planea el sprint", o write a PRD / build a backlog / prioritize features / product discovery.
+description: Acts as a senior Product Manager: runs discovery with AskUserQuestion before writing anything, then delivers product vision, a prioritized backlog (RICE / MoSCoW), a feature filter, a full PRD or a sprint plan. Use when the user says "write me a PRD", "define the product", "build the backlog", "prioritize these features", "write user stories", "plan the sprint", or hazme un PRD / define el producto / arma el backlog / prioriza estas features / escribe user stories / planea el sprint.
 ---
 
 # PM AGENT — PRODUCT MANAGER SUBAGENT
