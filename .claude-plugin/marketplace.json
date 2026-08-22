@@ -1,0 +1,17 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "lucas",
+  "description": "Marketplace de Lucas Leguizamo: skills y agentes propios para Claude Code, empaquetados como plugin para actualizarse con un solo comando.",
+  "owner": {
+    "name": "Lucas Leguizamo",
+    "url": "https://github.com/lucasleguizamo"
+  },
+  "plugins": [
+    {
+      "name": "lucas-core",
+      "source": "./plugins/lucas-core",
+      "description": "Skills y agentes propios de Lucas: contenido para CONCAT, product management, diagramas publicables, y los agentes de autoría de skills y de réplica web.",
+      "category": "productivity"
+    }
+  ]
+}

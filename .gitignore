@@ -1,0 +1,11 @@
+.DS_Store
+__pycache__/
+*.pyc
+node_modules/
+dist/
+*.log
+.env
+.env.*
+!.env.example
+.publish.env
+site/

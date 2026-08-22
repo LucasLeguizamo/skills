@@ -1,0 +1,26 @@
+{
+  "name": "lucas-core",
+  "version": "0.1.0",
+  "description": "Skills y agentes de autoría propia de Lucas Leguizamo: artículos de blog para CONCAT, descubrimiento de producto y PRDs, diagramas Excalidraw publicables por HTTPS, y los agentes que crean skills, construyen el CLI y hacen ingeniería inversa de sitios web.",
+  "author": {
+    "name": "Lucas Leguizamo",
+    "url": "https://github.com/lucasleguizamo"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/lucasleguizamo/skills",
+  "repository": "https://github.com/lucasleguizamo/skills",
+  "keywords": [
+    "skills",
+    "agents",
+    "claude-code",
+    "content",
+    "seo",
+    "product-management",
+    "prd",
+    "diagrams",
+    "excalidraw",
+    "web-design",
+    "spanish",
+    "latam"
+  ]
+}
