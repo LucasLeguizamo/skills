@@ -1,0 +1,106 @@
+{
+  "version": 1,
+  "generatedAt": "2026-08-22T03:04:33.000Z",
+  "marketplace": {
+    "name": "lucas",
+    "install": "/plugin marketplace add lucasleguizamo/skills"
+  },
+  "items": [
+    {
+      "slug": "site-rebuilder",
+      "type": "agent",
+      "name": "site-rebuilder",
+      "summary": "Reconstruye un SPEC de site-ripper como código real en este repo (Next 16, React 19, Tailwind 4, GSAP/Framer), adaptado a DESIGN.md en vez de copiar la referencia",
+      "whenToUse": "Úsalo después de site-ripper, o cuando el usuario quiera \"darle un giro\" al sitio, rehacer una sección, o portar una técnica de layout/motion vista en otra página.",
+      "category": "productivity",
+      "source": "https://github.com/lucasleguizamo/skills/blob/main/plugins/lucas-core/agents/site-rebuilder.md",
+      "install": "/plugin install lucas-core@lucas",
+      "version": "0.1.0",
+      "updatedAt": "2026-08-22T03:04:33.000Z"
+    },
+    {
+      "slug": "site-ripper",
+      "type": "agent",
+      "name": "site-ripper",
+      "summary": "Ingeniero inverso de páginas web",
+      "whenToUse": "Úsalo cuando quieras replicar, estudiar o \"robarle el truco\" a un sitio de referencia: captura la página en el navegador y produce un SPEC estructurado (tokens, retícula, tipografía, motion, copy, assets) listo para que site-rebuilder lo reconstruya en el stack propio. NO escribe código de producto — sólo el spec y los assets. Invócalo cuando el usuario mande una URL y diga replicar, clonar, \"quiero algo como\", referencia, inspiración, awwwards, o \"cómo hacen esta animación\".",
+      "category": "productivity",
+      "source": "https://github.com/lucasleguizamo/skills/blob/main/plugins/lucas-core/agents/site-ripper.md",
+      "install": "/plugin install lucas-core@lucas",
+      "version": "0.1.0",
+      "updatedAt": "2026-08-22T03:04:33.000Z"
+    },
+    {
+      "slug": "skills-cli",
+      "type": "agent",
+      "name": "skills-cli",
+      "summary": "Ingeniero del CLI open source `skills` (Node 24 + TypeScript, cero dependencias de runtime) que gestiona skills, agentes y plugins de Claude Code",
+      "whenToUse": "Úsalo para diseñar o implementar comandos, el manifest, el lockfile, el scaffolding, el export a la web, los tests, el release a npm y el CI. Invócalo cuando el usuario hable del CLI, de `skills <comando>`, del manifest, de publicar en npm o de automatizar su setup.",
+      "category": "productivity",
+      "source": "https://github.com/lucasleguizamo/skills/blob/main/plugins/lucas-core/agents/skills-cli.md",
+      "install": "/plugin install lucas-core@lucas",
+      "version": "0.1.0",
+      "updatedAt": "2026-08-22T03:04:33.000Z"
+    },
+    {
+      "slug": "skillsmith",
+      "type": "agent",
+      "name": "skillsmith",
+      "summary": "Autor y curador de agent skills, subagentes y plugins de Claude Code con el estándar de plugins/marketplace (para que todo se actualice con un solo comando)",
+      "whenToUse": "Úsalo para destilar un flujo repetido en una skill, escribir o arreglar frontmatter de SKILL.md, empaquetar skills sueltas dentro del plugin `skills`, versionar y publicar en el marketplace, o auditar la colección. Invócalo cuando el usuario diga skill, agente, plugin, marketplace, destilar, empaquetar, \"conviértelo en skill\" o hable de su setup de ~/.claude.",
+      "category": "productivity",
+      "source": "https://github.com/lucasleguizamo/skills/blob/main/plugins/lucas-core/agents/skillsmith.md",
+      "install": "/plugin install lucas-core@lucas",
+      "version": "0.1.0",
+      "updatedAt": "2026-08-22T03:04:33.000Z"
+    },
+    {
+      "slug": "lucas-core",
+      "type": "plugin",
+      "name": "lucas-core",
+      "summary": "Skills y agentes de autoría propia de Lucas Leguizamo: artículos de blog para CONCAT, descubrimiento de producto y PRDs, diagramas Excalidraw publicables por HTTPS, y los agentes que crean skills, construyen el CLI y hacen ingeniería inversa de sitios web",
+      "whenToUse": "",
+      "category": "productivity",
+      "source": "https://github.com/lucasleguizamo/skills/blob/main/plugins/lucas-core/.claude-plugin/plugin.json",
+      "install": "/plugin install lucas-core@lucas",
+      "version": "0.1.0",
+      "updatedAt": "2026-08-22T03:04:33.000Z"
+    },
+    {
+      "slug": "concat-content",
+      "type": "skill",
+      "name": "concat-content",
+      "summary": "Escribe artículos de blog SEO para CONCAT (onconcat.com) — JSX listo para pegar en lib/blog-posts.tsx más el prompt de imagen para nanobanana — dirigidos a dueños de PyMEs de Colombia y LATAM",
+      "whenToUse": "Úsala cuando el usuario diga \"escribe un post\", \"escribe un artículo\", \"crea un post para el blog\", \"redacta contenido para CONCAT\", \"post sobre X\", \"qué post sigue del calendario\", o write a blog post / new article / blog content for CONCAT.",
+      "category": "productivity",
+      "source": "https://github.com/lucasleguizamo/skills/blob/main/plugins/lucas-core/skills/concat-content/SKILL.md",
+      "install": "/plugin install lucas-core@lucas",
+      "version": "0.1.0",
+      "updatedAt": "2026-08-22T03:04:33.000Z"
+    },
+    {
+      "slug": "pm-agent",
+      "type": "skill",
+      "name": "pm-agent",
+      "summary": "Actúa como Product Manager senior: corre descubrimiento con AskUserQuestion antes de escribir nada y produce visión de producto, backlog priorizado (RICE / MoSCoW), filtro de features, PRD completo o plan de sprint",
+      "whenToUse": "Úsala cuando el usuario diga \"hazme un PRD\", \"define el producto\", \"arma el backlog\", \"prioriza estas features\", \"escribe user stories\", \"planea el sprint\", o write a PRD / build a backlog / prioritize features / product discovery.",
+      "category": "productivity",
+      "source": "https://github.com/lucasleguizamo/skills/blob/main/plugins/lucas-core/skills/pm-agent/SKILL.md",
+      "install": "/plugin install lucas-core@lucas",
+      "version": "0.1.0",
+      "updatedAt": "2026-08-22T03:04:33.000Z"
+    },
+    {
+      "slug": "whiteboard",
+      "type": "skill",
+      "name": "whiteboard",
+      "summary": "Dibuja flows, diagramas, wireframes y mapas de arquitectura estilo FigJam/Excalidraw desde Python (SVG autocontenido + archivo .excalidraw editable + ficha HTML con pan/zoom) y los publica en una web privada con nginx, TLS de Let's Encrypt, puerto no default y URL con token secreto",
+      "whenToUse": "Úsala cuando el usuario pida un diagrama, un flujo, un wireframe, un mapa de arquitectura, \"dibújalo\", \"hazme un tablero\", \"publícalo en una página\", o draw a diagram / flow / wireframe / architecture map and publish it.",
+      "category": "productivity",
+      "source": "https://github.com/lucasleguizamo/skills/blob/main/plugins/lucas-core/skills/whiteboard/SKILL.md",
+      "install": "/plugin install lucas-core@lucas",
+      "version": "0.1.0",
+      "updatedAt": "2026-08-22T03:04:33.000Z"
+    }
+  ]
+}

@@ -1,0 +1,46 @@
+{
+  "name": "@lucasleguizamo/skills",
+  "version": "0.1.0",
+  "description": "CLI sin dependencias para inventariar, versionar y reinstalar tu setup de Claude Code: skills, agentes, plugins, hooks y MCP.",
+  "license": "MIT",
+  "author": {
+    "name": "Lucas Leguizamo",
+    "url": "https://lucasleguizamo.com"
+  },
+  "homepage": "https://github.com/lucasleguizamo/skills#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lucasleguizamo/skills.git",
+    "directory": "cli"
+  },
+  "bugs": "https://github.com/lucasleguizamo/skills/issues",
+  "type": "module",
+  "bin": {
+    "skills": "dist/index.js"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=24"
+  },
+  "keywords": [
+    "claude-code",
+    "skills",
+    "agents",
+    "plugins",
+    "cli",
+    "zero-dependencies"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json && chmod +x dist/index.js",
+    "test": "npm run build && node --test test/*.test.js",
+    "prepublishOnly": "npm run build"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "typescript": "^5.9.0"
+  }
+}
