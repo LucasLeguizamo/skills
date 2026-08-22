@@ -1,118 +1,120 @@
 # `@lucasleguizamo/skills`
 
-CLI para inventariar, versionar y reinstalar un setup de Claude Code: skills,
-agentes, plugins, hooks y servidores MCP.
+A CLI to inventory, version and reinstall a Claude Code setup: skills, agents,
+plugins, hooks and MCP servers.
 
-Cero dependencias de runtime. Node 24+. TypeScript compilado con `tsc`, sin
-bundler. Todo comando soporta `--json`, respeta `NO_COLOR` y no escribe sobre
-`~/.claude` sin dejar un respaldo antes.
+Zero runtime dependencies. Node 24+. TypeScript compiled with `tsc`, no
+bundler. Every command supports `--json`, respects `NO_COLOR`, and never
+writes over `~/.claude` without leaving a backup first.
 
 ```
 npm i -g @lucasleguizamo/skills
 skills --help
 ```
 
-## Comandos
+## Commands
 
-| Comando | Estado | Qué hace |
+| Command | Status | What it does |
 |---|---|---|
-| `skills init [--dry-run]` | ✅ | escanea `~/.claude` y genera el manifest |
-| `skills list [--type t]` | ✅ | inventario de esta máquina con origen, versión y tag |
-| `skills export [--out f]` | ✅ | emite `registry.json` para lucasleguizamo.com/stack |
-| `skills new <skill\|agent\|plugin> <nombre>` | ✅ | andamiaje con el estándar del marketplace |
-| `skills add <fuente>` | ⏳ | instalar una skill de GitHub o un plugin de marketplace |
-| `skills remove <nombre>` | ⏳ | desinstalar |
-| `skills sync [--dry-run]` | ⏳ | aplicar el manifest a esta máquina |
-| `skills doctor` | ⏳ | validar frontmatter, duplicados, rutas y versiones |
+| `skills init [--dry-run]` | ✅ | scans `~/.claude` and generates the manifest |
+| `skills list [--type t]` | ✅ | inventory of this machine, with origin, version and tag |
+| `skills export [--out f]` | ✅ | emits `registry.json` for lucasleguizamo.com/stack |
+| `skills new <skill\|agent\|plugin> <name>` | ✅ | scaffolding that follows the marketplace standard |
+| `skills add <source>` | ⏳ | install a GitHub skill or a marketplace plugin |
+| `skills remove <name>` | ⏳ | uninstall |
+| `skills sync [--dry-run]` | ⏳ | apply the manifest to this machine |
+| `skills doctor` | ⏳ | validate frontmatter, duplicates, paths and versions |
 
-Los ⏳ existen como comando: imprimen "no implementado aún" y salen con código 1.
+The ⏳ ones exist as commands: they print "not implemented yet" and exit with
+code 1.
 
-`--help` es la documentación. Si algo de este README no aparece en
-`skills <comando> --help`, el que está mal es el README.
+`--help` is the documentation. If anything in this README does not show up in
+`skills <command> --help`, the README is the one that is wrong.
 
-## El manifest: `~/.claude/skills.json`
+## The manifest: `~/.claude/skills.json`
 
-Fuente de verdad, pensada para versionarse en git y viajar entre máquinas.
-`init` lo genera leyendo, sin modificarlos:
+The source of truth, meant to be tracked in git and carried between machines.
+`init` generates it by reading, without modifying:
 
-| Archivo | Aporta |
+| File | What it contributes |
 |---|---|
-| `~/.claude/skills/*/SKILL.md` | skills sueltas y su frontmatter |
-| `~/.claude/agents/*.md` | subagentes de usuario |
-| `~/.claude/plugins/installed_plugins.json` | plugins, versión, alcance y commit |
-| `~/.claude/plugins/known_marketplaces.json` | marketplaces declarados |
-| `~/.claude/settings.json` | hooks, plugins activos y servidores MCP |
-| `~/.agents/.skill-lock.json` | el repo de origen de cada skill: la prueba de autoría |
+| `~/.claude/skills/*/SKILL.md` | standalone skills and their frontmatter |
+| `~/.claude/agents/*.md` | user subagents |
+| `~/.claude/plugins/installed_plugins.json` | plugins, version, scope and commit |
+| `~/.claude/plugins/known_marketplaces.json` | declared marketplaces |
+| `~/.claude/settings.json` | hooks, enabled plugins and MCP servers |
+| `~/.agents/.skill-lock.json` | the origin repo of each skill: the authorship evidence |
 
-Forma:
+Shape:
 
 ```jsonc
 {
   "version": 1,
   "generatedAt": "2026-08-22T03:16:19.073Z",
   "exclude": ["mcp:n8n"],
-  "marketplaces": { "<nombre>": { "tag", "sourceType", "origin", "ref?", "install" } },
+  "marketplaces": { "<name>": { "tag", "sourceType", "origin", "ref?", "install" } },
   "plugins":      { "<plugin@marketplace>": { "tag", "marketplace", "plugin", "version",
                                               "scope", "commit", "enabled", "install" } },
-  "skills":       { "<nombre>": { "tag", "sourceType", "origin", "sourceUrl?", "skillPath?",
-                                  "description?", "version?", "installedAt?", "updatedAt?", "note?" } },
-  "agents":       { "<nombre>": { "tag", "sourceType", "origin", "description?", "model?", "tools?", "note?" } },
+  "skills":       { "<name>": { "tag", "sourceType", "origin", "sourceUrl?", "skillPath?",
+                                "description?", "version?", "installedAt?", "updatedAt?", "note?" } },
+  "agents":       { "<name>": { "tag", "sourceType", "origin", "description?", "model?", "tools?", "note?" } },
   "hooks":        [ { "event", "matcher?", "type", "command", "timeout?" } ],
-  "mcpServers":   { "<nombre>": { "transport", "command?", "args?", "url?", "envKeys", "from" } }
+  "mcpServers":   { "<name>": { "transport", "command?", "args?", "url?", "envKeys", "from" } }
 }
 ```
 
 ### Tags
 
-| Tag | Significado |
+| Tag | Meaning |
 |---|---|
-| `mine` | autoría propia: va al plugin y sale publicado en la web |
-| `vendor` | de terceros: sólo se declara para poder reinstalarlo |
-| `unknown` | sin evidencia de autoría; lo resuelve una persona |
+| `mine` | own work: ships in the plugin and gets published on the website |
+| `vendor` | third-party: declared only so it can be reinstalled |
+| `unknown` | no authorship evidence; a human resolves it |
 
-La clasificación se deduce del lockfile (`~/.agents/.skill-lock.json`): lo que
-vino de un repo ajeno es `vendor`. Los veredictos humanos de `AUDIT.md` van
-como semilla. **El tag que edites a mano gana**: `init` lo conserva.
+The classification is derived from the lockfile (`~/.agents/.skill-lock.json`):
+anything that came from someone else's repo is `vendor`. The human verdicts in
+`AUDIT.md` are used as the seed. **A tag you edit by hand wins**: `init` keeps
+it.
 
-### `exclude`: lo que todavía no se gestiona
+### `exclude`: what is not managed yet
 
 ```jsonc
-"exclude": ["mcp:n8n", "skill:una-que-no-quiero"]
+"exclude": ["mcp:n8n", "skill:one-i-dont-want"]
 ```
 
-Array de ítems que quedan fuera de todo: no entran al manifest, no salen en
-`list` y no se exportan. Cada entrada es `<tipo>:<nombre>` — tipos válidos
-`skill`, `agent`, `plugin`, `marketplace`, `mcp` — o el nombre pelado, que
-apaga cualquier tipo que se llame así.
+An array of items that stay out of everything: they never enter the manifest,
+never show up in `list` and are never exported. Each entry is `<type>:<name>` —
+valid types are `skill`, `agent`, `plugin`, `marketplace`, `mcp` — or a bare
+name, which switches off anything with that name regardless of type.
 
-- `init` lo **siembra** la primera vez (hoy: el servidor MCP `n8n`) y después
-  **no lo toca nunca**: el orden y el contenido son tuyos.
-- Si `init` vuelve a encontrar algo excluido, lo deja fuera en silencio; sólo
-  informa cuántos ítems quedaron afuera.
-- `list` y `export` hacen lo mismo: una línea con el conteo, sin nombres. Si
-  no se gestiona, no se enumera.
-- Para volver a gestionar algo, borrá su línea del array y corré `init`.
+- `init` **seeds** it the first time (today: the `n8n` MCP server) and then
+  **never touches it again**: the order and the contents are yours.
+- If `init` finds an excluded item again, it silently leaves it out; it only
+  reports how many items were left out.
+- `list` and `export` do the same: one line with the count, no names. If it is
+  not managed, it is not listed.
+- To manage something again, delete its line from the array and run `init`.
 
-### Garantías de `init`
+### What `init` guarantees
 
-- **Idempotente.** Si el manifest ya refleja la máquina, no escribe nada y lo dice.
-- **No destructivo.** Los datos derivados se refrescan; tu `tag` y tus claves
-  propias (`note`, …) sobreviven al merge.
-- **Portable.** Lo declarado en el manifest pero ausente en esta máquina no se
-  borra: `sync` lo va a necesitar. Se reporta como `removed-from-disk`.
-- **Respaldo.** Antes de sobreescribir copia el anterior a
+- **Idempotent.** If the manifest already matches the machine, it writes
+  nothing and says so.
+- **Non-destructive.** Derived data is refreshed; your `tag` and your own keys
+  (`note`, …) survive the merge.
+- **Portable.** Anything declared in the manifest but missing from this machine
+  is not deleted: `sync` will need it. It is reported as `removed-from-disk`.
+- **Backed up.** Before overwriting, the previous file is copied to
   `~/.claude/.skills-backup/<timestamp>/`.
-- **Sin secretos.** De los servidores MCP guarda los NOMBRES de las variables
-  de entorno, nunca sus valores.
-- `--dry-run` imprime el diff y no toca nada.
+- **No secrets.** For MCP servers it stores the NAMES of the environment
+  variables, never their values.
+- `--dry-run` prints the diff and touches nothing.
 
-## El contrato de `registry.json`
+## The `registry.json` contract
 
-`skills export` recorre el marketplace del repo (`.claude-plugin/marketplace.json`)
-y sus plugins, y emite un JSON con **sólo lo tageado `mine`** y no apagado por
-`exclude`. Es lo que
-consume `lucasleguizamo.com/stack` para generar páginas estáticas, así que el
-esquema es un contrato: romperlo rompe la web.
+`skills export` walks the repo's marketplace (`.claude-plugin/marketplace.json`)
+and its plugins, and emits a JSON file containing **only what is tagged `mine`**
+and not switched off by `exclude`. It is what `lucasleguizamo.com/stack` consumes to generate static
+pages, so the schema is a contract: breaking it breaks the website.
 
 ```jsonc
 {
@@ -124,78 +126,82 @@ esquema es un contrato: romperlo rompe la web.
       "slug": "whiteboard",
       "type": "skill",
       "name": "whiteboard",
-      "summary": "Dibuja flows, diagramas, wireframes y mapas de arquitectura estilo FigJam/Excalidraw desde Python",
-      "whenToUse": "Úsala cuando el usuario pida un diagrama, un flujo, un wireframe…",
+      "summary": "Draws flows, diagrams, wireframes and architecture maps in FigJam/Excalidraw style from Python",
+      "whenToUse": "Use when the user asks for a diagram, a flow, a wireframe…",
       "category": "productivity",
       "source": "https://github.com/lucasleguizamo/skills/blob/main/plugins/lucas-core/skills/whiteboard/SKILL.md",
       "install": "/plugin install lucas-core@lucas",
-      "version": "0.1.0",
+      "version": "0.1.1",
       "updatedAt": "2026-08-22T03:04:33.000Z"
     }
   ]
 }
 ```
 
-| Campo | Regla |
+| Field | Rule |
 |---|---|
-| `slug` | único en todo el archivo; es la URL `/stack/<slug>`. Ante colisión se antepone el tipo |
+| `slug` | unique across the file; it is the `/stack/<slug>` URL. On a collision the type is prefixed |
 | `type` | `skill` · `agent` · `plugin` |
-| `name` | el `name` del frontmatter (o del `plugin.json`) |
-| `summary` | una línea, sin punto final: la primera oración de la `description` |
-| `whenToUse` | el disparador: lo que va desde "Úsala/Úsalo/Invócalo cuando…" hasta el final |
-| `category` | `category` del frontmatter, si no la del plugin en el marketplace |
-| `source` | URL del archivo en GitHub (`SKILLS_REF` cambia la rama, por defecto `main`) |
-| `install` | comando copiable tal cual |
-| `version` | versión del plugin que lo empaqueta |
-| `updatedAt` | fecha del último commit que tocó el archivo; sin git, su `mtime` |
+| `name` | the frontmatter `name` (or the one in `plugin.json`) |
+| `summary` | one line, no trailing period: the first sentence of the `description` |
+| `whenToUse` | the trigger: everything from "Use when… / Úsala/Úsalo/Invócalo cuando…" to the end |
+| `category` | frontmatter `category`, falling back to the plugin's category in the marketplace |
+| `source` | URL of the file on GitHub (`SKILLS_REF` changes the branch, `main` by default) |
+| `install` | a command you can copy as is |
+| `version` | version of the plugin that packages it |
+| `updatedAt` | date of the last commit that touched the file; without git, its `mtime` |
 
-Los bloques `<example>` de los agentes **no** entran: `summary` y `whenToUse`
-salen limpios.
+The `<example>` blocks of the agents are **not** included: `summary` and
+`whenToUse` come out clean.
 
-`generatedAt` es el `updatedAt` más reciente, no la hora del reloj: exportar
-dos veces sobre el mismo commit produce bytes idénticos y no ensucia el diff.
+Descriptions are written in English and keep their Spanish trigger phrases, so
+`whenToUse` usually carries both languages. The parser accepts either opener.
 
-Los ítems vienen ordenados por `type` y luego por `slug`. Un elemento se cae
-del registry por dos motivos: si el manifest lo degradó a `vendor` o
-`unknown` (el comando los nombra en `excluded`), o si está en `exclude` (sólo
-se cuentan, en `excludedByRule`).
+`generatedAt` is the most recent `updatedAt`, not the wall clock: exporting
+twice on the same commit produces identical bytes and does not dirty the diff.
+
+Items come sorted by `type` and then by `slug`. An item drops out of the
+registry for two reasons: the manifest downgraded it to `vendor` or `unknown`
+(the command names those under `excluded`), or it is listed in `exclude` (those
+are only counted, under `excludedByRule`).
 
 ## `skills new`
 
 ```
-skills new skill  mi-skill     # <base>/skills/mi-skill/SKILL.md
-skills new agent  mi-agente    # <base>/agents/mi-agente.md
-skills new plugin mi-plugin    # <base>/mi-plugin/.claude-plugin/plugin.json + skills/ + agents/
+skills new skill  my-skill     # <base>/skills/my-skill/SKILL.md
+skills new agent  my-agent     # <base>/agents/my-agent.md
+skills new plugin my-plugin    # <base>/my-plugin/.claude-plugin/plugin.json + skills/ + agents/
 ```
 
-Base por defecto: `plugins/lucas-core/` del repo de marketplace en el que
-estés parado; si no hay repo, `~/.claude/`. `--out` la fuerza.
+Default base: `plugins/lucas-core/` of the marketplace repo you are standing
+in; with no repo, `~/.claude/`. `--out` forces it.
 
-Las plantillas ya traen el estándar: `name` en kebab-case idéntico al
-directorio, `description` en tercera persona que dice **qué hace y cuándo
-dispararse**, y en los agentes dos bloques `<example>` más `tools`. El resto
-es `TODO:` a completar.
+The templates already carry the standard: `name` in kebab-case identical to the
+directory, a third-person `description` that says **what it does and when it
+fires**, and for agents two `<example>` blocks plus `tools`. Everything else is
+a `TODO:` to fill in.
 
-**Nunca sobreescribe.** Si el destino existe, sale con código 1 sin tocar nada.
+**It never overwrites.** If the destination exists, it exits with code 1
+without touching anything.
 
-## Desarrollo
+## Development
 
 ```
 npm install
 npm run build      # tsc → dist/
-npm test           # build + node --test (sin frameworks)
+npm test           # build + node --test (no frameworks)
 ```
 
-Variables útiles para probar sin tocar tu máquina:
+Handy variables for testing without touching your machine:
 
-| Variable | Para qué |
+| Variable | What it is for |
 |---|---|
-| `SKILLS_CLAUDE_HOME` | apunta a un `~/.claude` falso |
-| `SKILLS_AGENTS_HOME` | apunta a un `~/.agents` falso |
-| `SKILLS_REPO` | fuerza la raíz del repo de marketplace |
-| `SKILLS_REF` | rama para las URLs de `source` en el registry |
-| `NO_COLOR` | apaga el ANSI |
+| `SKILLS_CLAUDE_HOME` | point at a fake `~/.claude` |
+| `SKILLS_AGENTS_HOME` | point at a fake `~/.agents` |
+| `SKILLS_REPO` | force the marketplace repo root |
+| `SKILLS_REF` | branch used for the `source` URLs in the registry |
+| `NO_COLOR` | turn off the ANSI |
 
-## Licencia
+## License
 
 MIT © 2026 Lucas Leguizamo

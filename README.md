@@ -1,70 +1,74 @@
 # skills
 
-Marketplace de plugins de Claude Code de [Lucas Leguizamo](https://lucasleguizamo.com).
-Un solo plugin por ahora — `lucas-core` — con las skills y agentes de autoría
-propia. Se instala una vez y se actualiza con `/plugin update`, sin copiar
-archivos sueltos a `~/.claude`.
+Claude Code plugin marketplace by [Lucas Leguizamo](https://lucasleguizamo.com).
+One plugin for now — `lucas-core` — holding the skills and agents he wrote
+himself. Install it once and update it with `/plugin update`, instead of
+copying loose files into `~/.claude`.
 
-## Instalación
+The skills are authored in English so anyone can read and fork them, and they
+keep their Spanish trigger phrases: Lucas works in Spanish, so both languages
+have to fire the same skill.
+
+## Install
 
 ```
 /plugin marketplace add lucasleguizamo/skills
 /plugin install lucas-core@lucas
 ```
 
-Actualizar:
+Update:
 
 ```
 /plugin update lucas-core
 ```
 
-## Qué incluye `lucas-core` (v0.1.0)
+## What `lucas-core` ships (v0.1.1)
 
 ### Skills
 
-| Skill | Qué hace | Cuándo se dispara |
+| Skill | What it does | Triggers on |
 |---|---|---|
-| `concat-content` | Artículos de blog SEO para CONCAT en JSX listo para `lib/blog-posts.tsx`, con prompt de imagen | "escribe un post", "crea un artículo para el blog", "qué post sigue" |
-| `pm-agent` | Descubrimiento de producto con `AskUserQuestion` → visión, backlog priorizado, PRD o plan de sprint | "hazme un PRD", "arma el backlog", "prioriza estas features" |
-| `whiteboard` | Diagramas, flows y wireframes estilo Excalidraw generados por código y publicados en una web privada (nginx + TLS + URL con token) | "hazme un diagrama", "dibuja el flujo", "publícalo en una página" |
+| `concat-content` | SEO blog articles for CONCAT as JSX ready for `lib/blog-posts.tsx`, plus the cover-image prompt. Articles are written in Spanish | "write a post", "create a blog article", "what post is next" · escribe un post, crea un artículo para el blog, qué post sigue |
+| `pm-agent` | Product discovery through `AskUserQuestion` → vision, prioritized backlog, PRD or sprint plan | "write me a PRD", "build the backlog", "prioritize these features" · hazme un PRD, arma el backlog, prioriza estas features |
+| `whiteboard` | Diagrams, flows and wireframes in Excalidraw style, generated from code and published to a private site (nginx + TLS + secret-token URL) | "make me a diagram", "draw the flow", "publish it on a page" · hazme un diagrama, dibuja el flujo, publícalo en una página |
 
-### Agentes
+### Agents
 
-| Agente | Rol |
+| Agent | Role |
 |---|---|
-| `skillsmith` | Autoría y curaduría de skills, agentes y plugins con estándar de marketplace |
-| `skills-cli` | Construye el CLI `skills` (Node + TypeScript, cero dependencias de runtime) |
-| `site-ripper` | Ingeniería inversa de una URL → SPEC de tokens, retícula, motion y copy |
-| `site-rebuilder` | Convierte ese SPEC en código real, adaptado al design system del repo destino |
+| `skillsmith` | Authoring and curation of skills, agents and plugins against the marketplace standard |
+| `skills-cli` | Builds the `skills` CLI (Node + TypeScript, zero runtime dependencies) |
+| `site-ripper` | Reverse-engineers a URL into a SPEC of tokens, grid, motion and copy |
+| `site-rebuilder` | Turns that SPEC into real code, adapted to the target repo's design system |
 
-## El CLI
+## The CLI
 
-`cli/` es el paquete `@lucasleguizamo/skills`, binario `skills`: cero
-dependencias de runtime, Node 24+, MIT. Documentación completa en
-[`cli/README.md`](cli/README.md); `skills --help` es la referencia.
+`cli/` is the `@lucasleguizamo/skills` package, binary `skills`: zero runtime
+dependencies, Node 24+, MIT. Full docs in [`cli/README.md`](cli/README.md);
+`skills --help` is the reference.
 
 ```
-skills init                 escanea ~/.claude y genera el manifest
-skills list [--json]        skills, agentes, plugins, hooks y MCP con origen y versión
-skills export [--out f]     emite registry.json para lucasleguizamo.com/stack
-skills new <skill|agent|plugin> <nombre>
+skills init                 scans ~/.claude and generates the manifest
+skills list [--json]        skills, agents, plugins, hooks and MCP with origin and version
+skills export [--out f]     emits registry.json for lucasleguizamo.com/stack
+skills new <skill|agent|plugin> <name>
 ```
 
-`add`, `remove`, `sync` y `doctor` llegan en la fase 3: hoy salen con
-"no implementado aún" y código 1.
+`add`, `remove`, `sync` and `doctor` land in phase 3: today they print "not
+implemented yet" and exit with code 1.
 
-El manifest `~/.claude/skills.json` es la fuente de verdad y se versiona en
-git. `registry.json` en la raíz de este repo lo genera `skills export` y sólo
-contiene lo tageado `mine`: su esquema es el contrato con el portafolio y está
-documentado en `cli/README.md`.
+The manifest `~/.claude/skills.json` is the source of truth and is tracked in
+git. `registry.json` at the root of this repo is generated by `skills export`
+and contains only what is tagged `mine`: its schema is the contract with the
+portfolio site and is documented in `cli/README.md`.
 
-## Curaduría
+## Curation
 
-`AUDIT.md` clasifica todo lo que hay en `~/.claude` en `mine` (autoría propia,
-va al plugin), `vendor` (de terceros, sólo se documenta para reinstalarlo) y
-`dead` (candidato a borrar). Nada de terceros se republica acá: se referencia
-su marketplace de origen.
+`AUDIT.md` classifies everything in `~/.claude` as `mine` (own work, ships in
+the plugin), `vendor` (third-party, documented only so it can be reinstalled)
+or `dead` (deletion candidate). Nothing third-party is republished here: the
+original marketplace is referenced instead.
 
-## Licencia
+## License
 
 MIT © 2026 Lucas Leguizamo
