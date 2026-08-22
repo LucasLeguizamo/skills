@@ -13,15 +13,28 @@ import type { Parsed } from "../lib/cli.js";
 
 const exec = promisify(execFile);
 
-export const REGISTRY_VERSION = 1;
+export const REGISTRY_VERSION = 2;
+
+/** Ruta del único archivo de traducciones, relativa a la raíz del repo. */
+export const ES_FILE = path.posix.join("i18n", "es.json");
+
+/**
+ * Texto de cara al público en los dos idiomas del portafolio. El inglés sale
+ * del frontmatter (fuente única); el español, de `i18n/es.json`. `es` nunca
+ * viene vacío: si falta la traducción se repite el inglés.
+ */
+export interface Localized {
+  en: string;
+  es: string;
+}
 
 /** Contrato con lucasleguizamo.com/stack. Ver el README del CLI. */
 export interface RegistryItem {
   slug: string;
   type: "skill" | "agent" | "plugin";
   name: string;
-  summary: string;
-  whenToUse: string;
+  summary: Localized;
+  whenToUse: Localized;
   category: string;
   source: string;
   install: string;
@@ -51,12 +64,42 @@ interface PluginFile {
   category?: string;
 }
 
+/** Una entrada de i18n/es.json. Los dos campos son opcionales. */
+export interface Translation {
+  summary?: string;
+  whenToUse?: string;
+}
+
+export type Translations = Record<string, Translation>;
+
 export interface BuildResult {
   registry: Registry;
   /** Degradados a vendor/unknown en el manifest: se nombran. */
   excluded: Array<{ slug: string; type: string; tag: string }>;
   /** Apartados por el campo `exclude`: sólo se cuentan, no se nombran. */
   excludedByRule: number;
+  /** `<slug>.<campo>` que salieron en inglés por falta de traducción. */
+  missingEs: string[];
+}
+
+/**
+ * Lee i18n/es.json. Es opcional y nunca rompe el export: si no existe, si no
+ * es JSON válido o si trae basura, se devuelve lo que se pueda y el resto
+ * cae al inglés.
+ */
+export async function loadTranslations(repoRoot: string): Promise<Translations> {
+  const raw = await readJson<unknown>(path.join(repoRoot, ...ES_FILE.split("/")), null);
+  if (!raw || typeof raw !== "object" || Array.isArray(raw)) return {};
+  const out: Translations = {};
+  for (const [slug, value] of Object.entries(raw as Record<string, unknown>)) {
+    if (!value || typeof value !== "object" || Array.isArray(value)) continue;
+    const v = value as Record<string, unknown>;
+    const entry: Translation = {};
+    if (typeof v.summary === "string") entry.summary = v.summary;
+    if (typeof v.whenToUse === "string") entry.whenToUse = v.whenToUse;
+    out[slug] = entry;
+  }
+  return out;
 }
 
 /**
@@ -89,6 +132,19 @@ export async function buildRegistry(repoRoot: string, manifest: Manifest | null)
   const slugs = new Set<string>();
   let marketplaceRepo = ownerRepo(mk.owner?.url ?? "");
 
+  const es = await loadTranslations(repoRoot);
+  const missingEs: string[] = [];
+  /**
+   * Inglés del frontmatter + español de i18n/es.json. Que falte el español
+   * jamás es un error: se emite el inglés en `es` y se anota el hueco.
+   */
+  const localize = (slug: string, name: string, field: keyof Translation, en: string): Localized => {
+    const value = (es[slug]?.[field] ?? es[name]?.[field] ?? "").trim();
+    if (value) return { en, es: value };
+    if (en) missingEs.push(`${slug}.${field}`);
+    return { en, es: en };
+  };
+
   const claim = (slug: string, type: string) => {
     if (!slugs.has(slug)) {
       slugs.add(slug);
@@ -115,12 +171,13 @@ export async function buildRegistry(repoRoot: string, manifest: Manifest | null)
     if (skip("plugin", pj.name)) continue;
 
     const pluginDesc = pj.description ?? declared.description ?? "";
+    const pluginSlug = claim(pj.name, "plugin");
     items.push({
-      slug: claim(pj.name, "plugin"),
+      slug: pluginSlug,
       type: "plugin",
       name: pj.name,
-      summary: firstSentence(pluginDesc),
-      whenToUse: splitDescription(pluginDesc).whenToUse,
+      summary: localize(pluginSlug, pj.name, "summary", firstSentence(pluginDesc)),
+      whenToUse: localize(pluginSlug, pj.name, "whenToUse", splitDescription(pluginDesc).whenToUse),
       category,
       source: srcUrl(path.posix.join(rel, ".claude-plugin", "plugin.json")),
       install,
@@ -141,12 +198,13 @@ export async function buildRegistry(repoRoot: string, manifest: Manifest | null)
         continue;
       }
       const { summary, whenToUse } = splitDescription(fm.description ?? "");
+      const slug = claim(name, "skill");
       items.push({
-        slug: claim(name, "skill"),
+        slug,
         type: "skill",
         name,
-        summary,
-        whenToUse,
+        summary: localize(slug, name, "summary", summary),
+        whenToUse: localize(slug, name, "whenToUse", whenToUse),
         category: fm.category ?? category,
         source: srcUrl(path.posix.join(rel, "skills", dirName, path.basename(file))),
         install,
@@ -166,12 +224,13 @@ export async function buildRegistry(repoRoot: string, manifest: Manifest | null)
         continue;
       }
       const { summary, whenToUse } = splitDescription(fm.description ?? "");
+      const slug = claim(name, "agent");
       items.push({
-        slug: claim(name, "agent"),
+        slug,
         type: "agent",
         name,
-        summary,
-        whenToUse,
+        summary: localize(slug, name, "summary", summary),
+        whenToUse: localize(slug, name, "whenToUse", whenToUse),
         category: fm.category ?? category,
         source: srcUrl(path.posix.join(rel, "agents", fileName)),
         install,
@@ -196,6 +255,7 @@ export async function buildRegistry(repoRoot: string, manifest: Manifest | null)
     },
     excluded,
     excludedByRule,
+    missingEs: missingEs.sort(),
   };
 }
 
@@ -229,7 +289,7 @@ export async function runExport(opts: Parsed): Promise<number> {
     );
   }
   const manifest = await loadManifest();
-  const { registry, excluded, excludedByRule } = await buildRegistry(repoRoot, manifest);
+  const { registry, excluded, excludedByRule, missingEs } = await buildRegistry(repoRoot, manifest);
   const out = path.resolve(opts.out ?? path.join(repoRoot, "registry.json"));
 
   const before = (await exists(out)) ? await readText(out) : null;
@@ -237,20 +297,21 @@ export async function runExport(opts: Parsed): Promise<number> {
   const unchanged = before === JSON.stringify(registry, null, 2) + "\n";
 
   if (opts.json) {
-    emitJson({ ok: true, out, count: registry.items.length, unchanged, excluded, excludedByRule, registry });
+    emitJson({ ok: true, out, count: registry.items.length, unchanged, excluded, excludedByRule, missingEs, registry });
     return 0;
   }
 
   heading(`registry.json — ${registry.items.length} elementos`);
   table(
-    registry.items.map((i) => [i.slug, i.type, i.version, i.summary.slice(0, 60)]),
-    ["slug", "tipo", "versión", "resumen"],
+    registry.items.map((i) => [i.slug, i.type, i.version, i.summary.en.slice(0, 60)]),
+    ["slug", "tipo", "versión", "resumen (en)"],
   );
   if (excluded.length) {
     heading("Excluidos (no son `mine` en el manifest)");
     table(excluded.map((e) => [e.slug, e.type, e.tag]));
   }
   if (excludedByRule > 0) note(`${excludedByRule} ítem(s) fuera por el campo \`exclude\` del manifest.`);
+  if (missingEs.length) note(`sin español en ${ES_FILE} (sale el inglés): ${missingEs.join(", ")}`);
   line();
   line(`${green(unchanged ? "sin cambios" : "escrito")} ${cyan(out)}`);
   note("Copialo a src/data/registry.json del portafolio y commitealo.");

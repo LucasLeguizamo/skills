@@ -166,9 +166,10 @@ Toma el manifest y las SKILL.md / agentes de plugins/lucas-core y emite un
 JSON con SÓLO lo tageado "mine", menos lo que apague el array \`exclude\`. El portafolio genera páginas estáticas desde
 ese archivo, así que el esquema es un contrato:
 
-  { version, generatedAt,
+  { version: 2, generatedAt,
     marketplace: { name, install },
-    items: [ { slug, type (skill|agent|plugin), name, summary, whenToUse,
+    items: [ { slug, type (skill|agent|plugin), name,
+               summary: { en, es }, whenToUse: { en, es },
                category, source, install, version, updatedAt } ] }
 
   summary     una línea: qué hace (primera oración de la description)
@@ -178,12 +179,20 @@ ese archivo, así que el esquema es un contrato:
   version     versión del plugin que lo empaqueta
   updatedAt   fecha del último commit que tocó el archivo (o su mtime)
 
+summary y whenToUse son bilingües. El inglés sale del frontmatter (fuente
+única); el español, de i18n/es.json en la raíz del repo, un mapa
+slug -> { summary, whenToUse } con los dos campos opcionales. Si falta la
+traducción de un slug o de un campo, en \`es\` sale el inglés y el comando
+sigue: nunca falla ni deja un campo vacío. Los huecos se informan al final
+y en --json bajo \`missingEs\`.
+
 generatedAt es el updatedAt más reciente, no la hora de correr el comando:
 exportar dos veces produce bytes idénticos.
 
 Opciones
   --out <f>    destino (por defecto <repo>/registry.json)
-  --json       { ok, out, count, unchanged, excluded, excludedByRule, registry }`,
+  --json       { ok, out, count, unchanged, excluded, excludedByRule,
+                 missingEs, registry }`,
 
   new: `skills new — andamiaje con el estándar del marketplace.
 

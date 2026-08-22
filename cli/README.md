@@ -118,7 +118,7 @@ pages, so the schema is a contract: breaking it breaks the website.
 
 ```jsonc
 {
-  "version": 1,
+  "version": 2,
   "generatedAt": "2026-08-22T03:04:33.000Z",
   "marketplace": { "name": "lucas", "install": "/plugin marketplace add lucasleguizamo/skills" },
   "items": [
@@ -126,8 +126,14 @@ pages, so the schema is a contract: breaking it breaks the website.
       "slug": "whiteboard",
       "type": "skill",
       "name": "whiteboard",
-      "summary": "Draws flows, diagrams, wireframes and architecture maps in FigJam/Excalidraw style from Python",
-      "whenToUse": "Use when the user asks for a diagram, a flow, a wireframe…",
+      "summary": {
+        "en": "Draws flows, diagrams, wireframes and architecture maps in FigJam/Excalidraw style from Python",
+        "es": "Dibuja flows, diagramas, wireframes y mapas de arquitectura estilo FigJam/Excalidraw desde Python"
+      },
+      "whenToUse": {
+        "en": "Use when the user asks for a diagram, a flow, a wireframe…",
+        "es": "Úsala cuando el usuario pida un diagrama, un flujo, un wireframe…"
+      },
       "category": "productivity",
       "source": "https://github.com/lucasleguizamo/skills/blob/main/plugins/lucas-core/skills/whiteboard/SKILL.md",
       "install": "/plugin install lucas-core@lucas",
@@ -143,8 +149,8 @@ pages, so the schema is a contract: breaking it breaks the website.
 | `slug` | unique across the file; it is the `/stack/<slug>` URL. On a collision the type is prefixed |
 | `type` | `skill` · `agent` · `plugin` |
 | `name` | the frontmatter `name` (or the one in `plugin.json`) |
-| `summary` | one line, no trailing period: the first sentence of the `description` |
-| `whenToUse` | the trigger: everything from "Use when… / Úsala/Úsalo/Invócalo cuando…" to the end |
+| `summary` | `{ en, es }`. One line, no trailing period: the first sentence of the `description` |
+| `whenToUse` | `{ en, es }`. The trigger: everything from "Use when… / Úsala/Úsalo/Invócalo cuando…" to the end |
 | `category` | frontmatter `category`, falling back to the plugin's category in the marketplace |
 | `source` | URL of the file on GitHub (`SKILLS_REF` changes the branch, `main` by default) |
 | `install` | a command you can copy as is |
@@ -154,8 +160,41 @@ pages, so the schema is a contract: breaking it breaks the website.
 The `<example>` blocks of the agents are **not** included: `summary` and
 `whenToUse` come out clean.
 
-Descriptions are written in English and keep their Spanish trigger phrases, so
-`whenToUse` usually carries both languages. The parser accepts either opener.
+### Both languages: `summary` and `whenToUse` are `{ en, es }`
+
+The website is bilingual, so since **version 2** the two prose fields are
+objects instead of strings. Everything else in the file is unchanged.
+
+**English is the single source of truth and stays in the frontmatter.** It is
+the standard plugin format, so no new keys are invented there: `en` is still
+derived from the same `description` as before.
+
+**Spanish lives in one file**, `i18n/es.json` at the root of this repo, a flat
+map from slug to the two fields, both optional:
+
+```jsonc
+{
+  "whiteboard": {
+    "summary":   "Dibuja flows, diagramas, wireframes y mapas de arquitectura…",
+    "whenToUse": "Úsala cuando el usuario pida un diagrama, un flujo…"
+  },
+  "lucas-core": { "summary": "Skills y agentes de autoría propia de Lucas Leguizamo…" }
+}
+```
+
+**It always falls back to English, it never fails.** If the slug is missing, if
+one of the two fields is missing, if the file does not exist or is not even
+valid JSON, `es` gets the English text and the export carries on. The web never
+sees an empty field. Each gap is reported at the end of the run and listed
+under `missingEs` in `--json`, as `<slug>.<field>` — a field whose English is
+empty (the plugin has no trigger) is not a gap.
+
+Lookup is by `slug` and, failing that, by `name`: an item renamed by a slug
+collision keeps its translation.
+
+Descriptions in the frontmatter are written in English and keep their Spanish
+trigger phrases, so `whenToUse.en` usually carries both languages; `es` mirrors
+that with Spanish first. The parser accepts either opener.
 
 `generatedAt` is the most recent `updatedAt`, not the wall clock: exporting
 twice on the same commit produces identical bytes and does not dirty the diff.
