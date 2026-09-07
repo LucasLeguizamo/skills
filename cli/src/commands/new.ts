@@ -49,13 +49,13 @@ export function planNew(kind: Kind, name: string, base: string): NewPlan {
 }
 
 /**
- * Dónde escribir. Por orden: --out, el plugin lucas-core del repo en el que
+ * Dónde escribir. Por orden: --out, el plugin lucas-leguizamo-skills del repo en el que
  * estés parado, y como último recurso ~/.claude (instalación suelta).
  */
 export function resolveBase(kind: Kind, out: string | undefined): string {
   if (out) return path.resolve(out);
   const repo = findRepoRoot();
-  if (repo) return kind === "plugin" ? path.join(repo, "plugins") : path.join(repo, "plugins", "lucas-core");
+  if (repo) return kind === "plugin" ? path.join(repo, "plugins") : path.join(repo, "plugins", "lucas-leguizamo-skills");
   if (kind === "plugin") {
     throw new UserError(
       "`new plugin` necesita un repo de marketplace. Corrélo dentro del repo `skills` o pasá --out.",

@@ -8,9 +8,9 @@
   },
   "plugins": [
     {
-      "name": "lucas-core",
-      "source": "./plugins/lucas-core",
-      "description": "Lucas's own skills and agents: CONCAT content, product management, publishable diagrams, and the skill-authoring and site-replication agents.",
+      "name": "lucas-leguizamo-skills",
+      "source": "./plugins/lucas-leguizamo-skills",
+      "description": "Lucas's own skills and the agents that build, review and QA his site: knowledge graphs, product discovery, SEO content, diagrams, art direction, design-system enforcement, WebGL/motion, performance and bug hunting.",
       "category": "productivity"
     }
   ]

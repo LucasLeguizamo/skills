@@ -1,7 +1,7 @@
 {
-  "name": "@lucasleguizamo/skills",
-  "version": "0.1.0",
-  "description": "CLI sin dependencias para inventariar, versionar y reinstalar tu setup de Claude Code: skills, agentes, plugins, hooks y MCP.",
+  "name": "lucasleguizamo",
+  "version": "0.2.0",
+  "description": "Zero-dependency CLI to inventory, version and reinstall Lucas Leguizamo's Claude Code setup: skills, agents, plugins, hooks and MCP.",
   "license": "MIT",
   "author": {
     "name": "Lucas Leguizamo",
@@ -16,7 +16,7 @@
   "bugs": "https://github.com/lucasleguizamo/skills/issues",
   "type": "module",
   "bin": {
-    "skills": "dist/index.js"
+    "lucasleguizamo": "dist/index.js"
   },
   "files": [
     "dist",

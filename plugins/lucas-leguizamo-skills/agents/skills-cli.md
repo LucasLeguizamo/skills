@@ -1,11 +1,11 @@
 ---
 name: skills-cli
 description: >
-  Engineers the open-source `skills` CLI (Node 24 + TypeScript, zero runtime
+  Engineers the open-source `lucasleguizamo` CLI (Node 24 + TypeScript, zero runtime
   dependencies) that manages Claude Code skills, agents and plugins. Reach for
   it to design or implement commands, the manifest, the lockfile, the
   scaffolding, the website export, the tests, the npm release and CI. Use when
-  the user talks about the CLI, `skills <command>`, the manifest, publishing
+  the user talks about the CLI, `lucasleguizamo <command>`, the manifest, publishing
   to npm, automating their setup, or dice el CLI, el manifest, "publicar en
   npm", "automatizar mi setup".
 

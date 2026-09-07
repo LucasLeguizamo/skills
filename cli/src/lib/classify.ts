@@ -14,9 +14,9 @@ export interface Seed {
 
 export const SEED: Record<string, Seed> = {
   // Skills de autoría propia — AUDIT.md
-  "skill:concat-content": { tag: "mine", note: "Migrada a lucas-core; sin uso en la ventana de 30 días" },
-  "skill:pm-agent": { tag: "mine", note: "Migrada a lucas-core" },
-  "skill:whiteboard": { tag: "mine", note: "Migrada a lucas-core" },
+  "skill:concat-content": { tag: "mine", note: "Migrada a lucas-leguizamo-skills; sin uso en la ventana de 30 días" },
+  "skill:pm-agent": { tag: "mine", note: "Migrada a lucas-leguizamo-skills" },
+  "skill:whiteboard": { tag: "mine", note: "Migrada a lucas-leguizamo-skills" },
   // Skills de terceros con matices — AUDIT.md
   "skill:freeticket-cli": {
     tag: "vendor",
@@ -24,10 +24,10 @@ export const SEED: Record<string, Seed> = {
   },
   "skill:video-use": { tag: "vendor", note: "Symlink a ~/Developer/video-use; MIT © Browser Use" },
   // Agentes de autoría propia, pero atados a un repo — AUDIT.md
-  "agent:ft-software-architect": { tag: "mine", note: "Específico de free-admin; no va a lucas-core" },
-  "agent:ft-testing-expert": { tag: "mine", note: "Específico de free-admin; no va a lucas-core" },
-  "agent:ft-qa-reviewer": { tag: "mine", note: "Específico de free-admin; no va a lucas-core" },
-  "agent:ft-devops-ci": { tag: "mine", note: "Específico de free-admin; no va a lucas-core" },
+  "agent:ft-software-architect": { tag: "mine", note: "Específico de free-admin; no va a lucas-leguizamo-skills" },
+  "agent:ft-testing-expert": { tag: "mine", note: "Específico de free-admin; no va a lucas-leguizamo-skills" },
+  "agent:ft-qa-reviewer": { tag: "mine", note: "Específico de free-admin; no va a lucas-leguizamo-skills" },
+  "agent:ft-devops-ci": { tag: "mine", note: "Específico de free-admin; no va a lucas-leguizamo-skills" },
 };
 
 /** Los 12 clones de Leonxlnx/taste-skill: vendor y candidatos a borrar. */

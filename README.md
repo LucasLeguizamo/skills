@@ -1,7 +1,7 @@
 # skills
 
 Claude Code plugin marketplace by [Lucas Leguizamo](https://lucasleguizamo.com).
-One plugin for now — `lucas-core` — holding the skills and agents he wrote
+One plugin for now — `lucas-leguizamo-skills` — holding the skills and agents he wrote
 himself. Install it once and update it with `/plugin update`, instead of
 copying loose files into `~/.claude`.
 
@@ -13,58 +13,79 @@ have to fire the same skill.
 
 ```
 /plugin marketplace add lucasleguizamo/skills
-/plugin install lucas-core@lucas
+/plugin install lucas-leguizamo-skills@lucas
 ```
 
 Update:
 
 ```
-/plugin update lucas-core
+/plugin update lucas-leguizamo-skills
 ```
 
-## What `lucas-core` ships (v0.1.1)
+## What `lucas-leguizamo-skills` ships (v0.2.0)
 
 ### Skills
 
 | Skill | What it does | Triggers on |
 |---|---|---|
+| `graphify` | Turns any input — code, docs, papers, images, video — into a persistent knowledge graph with god nodes, community detection and query/path/explain tools | "how does this codebase fit together", `/graphify` · cómo se relaciona esto, qué hace este proyecto |
 | `concat-content` | SEO blog articles for CONCAT as JSX ready for `lib/blog-posts.tsx`, plus the cover-image prompt. Articles are written in Spanish | "write a post", "create a blog article", "what post is next" · escribe un post, crea un artículo para el blog, qué post sigue |
 | `pm-agent` | Product discovery through `AskUserQuestion` → vision, prioritized backlog, PRD or sprint plan | "write me a PRD", "build the backlog", "prioritize these features" · hazme un PRD, arma el backlog, prioriza estas features |
 | `whiteboard` | Diagrams, flows and wireframes in Excalidraw style, generated from code and published to a private site (nginx + TLS + secret-token URL) | "make me a diagram", "draw the flow", "publish it on a page" · hazme un diagrama, dibuja el flujo, publícalo en una página |
 
 ### Agents
 
+The twelve that build, review and QA [lucasleguizamo.com](https://lucasleguizamo.com).
+They are written for that repo, but the split is the point: art direction
+decides, the guardian enforces, QA proves.
+
 | Agent | Role |
 |---|---|
-| `skillsmith` | Authoring and curation of skills, agents and plugins against the marketplace standard |
-| `skills-cli` | Builds the `skills` CLI (Node + TypeScript, zero runtime dependencies) |
+| `art-director` | Writes the visual law: palette, materials, texture, type scale, what the first screen leads with |
+| `design-guardian` | Enforces it — reviews a diff against `DESIGN.md` before anything user-visible merges |
+| `webgl-motion` | The global WebGL stage: the fluid field, the composite pass, the DOM↔plane sync, the GPU budget and the gating |
+| `qa-verifier` | Browser-level QA after a change lands: both locales, both viewports, console and network clean, proof screenshots |
+| `bug-hunter` | Reproduces, fixes and *proves* a bug is gone. Leaves no unapplied findings |
+| `perf-optimizer` | Core Web Vitals, media weight, bundle analysis |
+| `seo-portfolio` | SEO + GEO: metadata, schema, hreflang, AI-citability, personal-brand entity SEO |
+| `content-i18n` | Every user-facing string, shipped in Spanish *and* English in the same change |
 | `site-ripper` | Reverse-engineers a URL into a SPEC of tokens, grid, motion and copy |
 | `site-rebuilder` | Turns that SPEC into real code, adapted to the target repo's design system |
+| `skillsmith` | Authoring and curation of skills, agents and plugins against the marketplace standard |
+| `skills-cli` | Builds the `lucasleguizamo` CLI (Node 24 + TypeScript, zero runtime dependencies) |
+
+Third-party skills installed in `~/.claude` are deliberately **not** vendored
+here — the manifest records where each one came from, and `lucasleguizamo
+export` only publishes what is tagged `mine`.
 
 ## The CLI
 
-`cli/` is the `@lucasleguizamo/skills` package, binary `skills`: zero runtime
+`cli/` is the `lucasleguizamo` package, binary `lucasleguizamo`: zero runtime
 dependencies, Node 24+, MIT. Full docs in [`cli/README.md`](cli/README.md);
-`skills --help` is the reference.
+`lucasleguizamo --help` is the reference.
 
 ```
-skills init                 scans ~/.claude and generates the manifest
-skills list [--json]        skills, agents, plugins, hooks and MCP with origin and version
-skills export [--out f]     emits registry.json for lucasleguizamo.com/stack
-skills new <skill|agent|plugin> <name>
+npm i -g lucasleguizamo
+```
+
+```
+lucasleguizamo init                 scans ~/.claude and generates the manifest
+lucasleguizamo list [--json]        skills, agents, plugins, hooks and MCP with origin and version
+lucasleguizamo export [--out f]     emits registry.json for lucasleguizamo.com/stack
+lucasleguizamo new <skill|agent|plugin> <name>
 ```
 
 `add`, `remove`, `sync` and `doctor` land in phase 3: today they print "not
 implemented yet" and exit with code 1.
 
 The manifest `~/.claude/skills.json` is the source of truth and is tracked in
-git. `registry.json` at the root of this repo is generated by `skills export`
+git. `registry.json` at the root of this repo is generated by `lucasleguizamo export`
 and contains only what is tagged `mine`: its schema is the contract with the
 portfolio site and is documented in `cli/README.md`.
 
 Every description is written in English in its own frontmatter, the single
 source of truth. The Spanish for the website lives in one file, `i18n/es.json`
-(slug → `summary` / `whenToUse`), and `skills export` merges the two into
+(slug → `summary` / `whenToUse`), and `lucasleguizamo export` merges the two into
 `{ en, es }`. A missing translation is never an error: the English is used.
 
 ## Curation

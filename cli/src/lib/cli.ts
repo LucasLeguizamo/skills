@@ -51,7 +51,7 @@ export function parseCli(argv: string[]): Parsed {
       positionals: string[];
     });
   } catch (err) {
-    throw new UserError((err as Error).message + "\nCorré `skills --help`.", "bad-flag");
+    throw new UserError((err as Error).message + "\nCorré `lucasleguizamo --help`.", "bad-flag");
   }
 
   const [first, ...rest] = positionals;
@@ -76,9 +76,9 @@ export function parseCli(argv: string[]): Parsed {
 }
 
 export const HELP: Record<string, string> = {
-  root: `skills — gestiona tu setup de Claude Code: skills, agentes, plugins, hooks y MCP.
+  root: `lucasleguizamo — gestiona tu setup de Claude Code: skills, agentes, plugins, hooks y MCP.
 
-Uso: skills <comando> [opciones]
+Uso: lucasleguizamo <comando> [opciones]
 
 Comandos
   init                       escanea ~/.claude y genera ~/.claude/skills.json
@@ -110,9 +110,9 @@ Entorno
 
 Documentación: https://github.com/lucasleguizamo/skills`,
 
-  init: `skills init — escanea ~/.claude y escribe el manifest.
+  init: `lucasleguizamo init — escanea ~/.claude y escribe el manifest.
 
-Uso: skills init [--dry-run] [--json]
+Uso: lucasleguizamo init [--dry-run] [--json]
 
 Lee, sin modificarlos:
   ~/.claude/skills/*/SKILL.md              skills sueltas y su frontmatter
@@ -140,9 +140,9 @@ Opciones
   --dry-run    imprime el diff y no escribe nada
   --json       { ok, manifest, diff, wrote, backup, excluded }`,
 
-  list: `skills list — inventario de esta máquina.
+  list: `lucasleguizamo list — inventario de esta máquina.
 
-Uso: skills list [--type skill|agent|plugin|marketplace|hook|mcp] [--json]
+Uso: lucasleguizamo list [--type skill|agent|plugin|marketplace|hook|mcp] [--json]
 
 Escanea ~/.claude en vivo y, si existe el manifest, superpone sus tags: la
 lista dice lo que hay instalado hoy, con la clasificación que vos aprobaste.
@@ -158,11 +158,11 @@ Opciones
   --json       { ok, source, excluded, counts, skills, agents, plugins,
                        marketplaces, hooks, mcpServers }`,
 
-  export: `skills export — emite registry.json para lucasleguizamo.com/stack.
+  export: `lucasleguizamo export — emite registry.json para lucasleguizamo.com/stack.
 
-Uso: skills export [--out <archivo>] [--json]
+Uso: lucasleguizamo export [--out <archivo>] [--json]
 
-Toma el manifest y las SKILL.md / agentes de plugins/lucas-core y emite un
+Toma el manifest y las SKILL.md / agentes de plugins/lucas-leguizamo-skills y emite un
 JSON con SÓLO lo tageado "mine", menos lo que apague el array \`exclude\`. El portafolio genera páginas estáticas desde
 ese archivo, así que el esquema es un contrato:
 
@@ -194,9 +194,9 @@ Opciones
   --json       { ok, out, count, unchanged, excluded, excludedByRule,
                  missingEs, registry }`,
 
-  new: `skills new — andamiaje con el estándar del marketplace.
+  new: `lucasleguizamo new — andamiaje con el estándar del marketplace.
 
-Uso: skills new <skill|agent|plugin> <nombre> [--out <dir>] [--json]
+Uso: lucasleguizamo new <skill|agent|plugin> <nombre> [--out <dir>] [--json]
 
   skill    <dir>/<nombre>/SKILL.md con frontmatter name + description
   agent    <dir>/<nombre>.md con name, description con 2 <example>, y tools
@@ -206,7 +206,7 @@ El nombre debe ser kebab-case y coincide con el directorio: es lo que Claude
 Code usa para invocar. La description va en tercera persona y dice qué hace
 Y cuándo dispararse, con las palabras reales que usarías al pedirlo.
 
-Destino por defecto: plugins/lucas-core/{skills,agents} del repo en el que
+Destino por defecto: plugins/lucas-leguizamo-skills/{skills,agents} del repo en el que
 estés parado; si no hay repo de marketplace, ~/.claude/{skills,agents}.
 
 Nunca sobreescribe: si el destino existe, sale con código 1.

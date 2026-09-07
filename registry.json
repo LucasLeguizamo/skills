@@ -1,11 +1,137 @@
 {
   "version": 2,
-  "generatedAt": "2026-08-22T03:33:17.000Z",
+  "generatedAt": "2026-09-07T05:24:23.860Z",
   "marketplace": {
     "name": "lucas",
     "install": "/plugin marketplace add lucasleguizamo/skills"
   },
   "items": [
+    {
+      "slug": "art-director",
+      "type": "agent",
+      "name": "art-director",
+      "summary": {
+        "en": "Director de arte de lucasleguizamo.com",
+        "es": "Director de arte de lucasleguizamo.com: dueño de la paleta, el lenguaje de materiales, la textura, la escala tipográfica y la jerarquía de lo que el visitante ve primero"
+      },
+      "whenToUse": {
+        "en": "Úsalo ANTES de que design-guardian revise: el guardián hace cumplir la ley, este agente la escribe. Invócalo cuando el usuario hable de paleta, colores, tierra, identidad, mood, \"se siente frío/plano\", qué debe destacar en una pantalla, o cuando una sección nueva necesite decidir su registro visual.",
+        "es": "Invócalo cuando el usuario hable de paleta, colores, tierra, identidad, mood, \"se siente frío/plano\", qué debe destacar en una pantalla, o cuando una sección nueva necesite decidir su registro visual."
+      },
+      "category": "productivity",
+      "source": "https://github.com/lucasleguizamo/skills/blob/main/plugins/lucas-leguizamo-skills/agents/art-director.md",
+      "install": "/plugin install lucas-leguizamo-skills@lucas",
+      "version": "0.2.0",
+      "updatedAt": "2026-09-07T05:24:23.808Z"
+    },
+    {
+      "slug": "bug-hunter",
+      "type": "agent",
+      "name": "bug-hunter",
+      "summary": {
+        "en": "Cazador y cerrador de bugs de lucasleguizamo.com",
+        "es": "Caza y cierra bugs: reproduce el fallo, lo mide, lo arregla y demuestra con evidencia que dejó de ocurrir — no deja recomendaciones sin aplicar"
+      },
+      "whenToUse": {
+        "en": "Úsalo cuando algo esté roto y tenga que quedar cerrado, cuando una auditoría haya dejado una lista de hallazgos sin aplicar, cuando un bug reaparezca, o cuando el usuario diga que algo \"sigue igual\" después de haberlo dado por arreglado. Invócalo si el usuario menciona bug, roto, no funciona, no se ve, sigue pasando, falla, regresión, o dice \"termínalo cueste lo que cueste\".",
+        "es": "Invócalo si el usuario menciona bug, roto, no funciona, no se ve, sigue pasando, falla, regresión, o dice \"termínalo cueste lo que cueste\"."
+      },
+      "category": "productivity",
+      "source": "https://github.com/lucasleguizamo/skills/blob/main/plugins/lucas-leguizamo-skills/agents/bug-hunter.md",
+      "install": "/plugin install lucas-leguizamo-skills@lucas",
+      "version": "0.2.0",
+      "updatedAt": "2026-09-07T05:24:23.815Z"
+    },
+    {
+      "slug": "content-i18n",
+      "type": "agent",
+      "name": "content-i18n",
+      "summary": {
+        "en": "Bilingual (es/en) content writer and i18n keeper for lucasleguizamo.com",
+        "es": "Redactor bilingüe (es/en) y guardián de i18n: escribe o edita cualquier copy visible entregando siempre español e inglés en el mismo cambio"
+      },
+      "whenToUse": {
+        "en": "",
+        "es": "Invócalo cuando el usuario mencione textos, copy, traducción, blog post, descripciones, o agregue cualquier string visible nuevo."
+      },
+      "category": "productivity",
+      "source": "https://github.com/lucasleguizamo/skills/blob/main/plugins/lucas-leguizamo-skills/agents/content-i18n.md",
+      "install": "/plugin install lucas-leguizamo-skills@lucas",
+      "version": "0.2.0",
+      "updatedAt": "2026-09-07T05:24:23.819Z"
+    },
+    {
+      "slug": "design-guardian",
+      "type": "agent",
+      "name": "design-guardian",
+      "summary": {
+        "en": "Design-system enforcer for lucasleguizamo.com",
+        "es": "Hace cumplir el design system: revisa el código contra DESIGN.md —paleta, tipografía, recetas de layout, sistema de motion, interacciones sólo por color, cobertura de reduced-motion— y señala violaciones con arreglos concretos"
+      },
+      "whenToUse": {
+        "en": "",
+        "es": "Úsalo ANTES de mergear cualquier cambio visible y al construir UI nueva; o cuando el usuario mencione diseño, UI, estilos, animaciones o componentes nuevos."
+      },
+      "category": "productivity",
+      "source": "https://github.com/lucasleguizamo/skills/blob/main/plugins/lucas-leguizamo-skills/agents/design-guardian.md",
+      "install": "/plugin install lucas-leguizamo-skills@lucas",
+      "version": "0.2.0",
+      "updatedAt": "2026-09-07T05:24:23.825Z"
+    },
+    {
+      "slug": "perf-optimizer",
+      "type": "agent",
+      "name": "perf-optimizer",
+      "summary": {
+        "en": "Web performance and asset-weight specialist for lucasleguizamo.com (Next.js 16)",
+        "es": "Especialista en performance web y peso de assets: Core Web Vitals, optimización de video, imágenes y fuentes, y análisis de bundle"
+      },
+      "whenToUse": {
+        "en": "",
+        "es": "Invócalo cuando el usuario mencione performance, peso, velocidad, LCP, CLS, lighthouse, optimizar imágenes/video, o antes de subir cambios con mucho media."
+      },
+      "category": "productivity",
+      "source": "https://github.com/lucasleguizamo/skills/blob/main/plugins/lucas-leguizamo-skills/agents/perf-optimizer.md",
+      "install": "/plugin install lucas-leguizamo-skills@lucas",
+      "version": "0.2.0",
+      "updatedAt": "2026-09-07T05:24:23.829Z"
+    },
+    {
+      "slug": "qa-verifier",
+      "type": "agent",
+      "name": "qa-verifier",
+      "summary": {
+        "en": "Browser-level QA verifier for lucasleguizamo.com",
+        "es": "QA a nivel navegador: levanta el preview, revisa errores de consola y de red, verifica ambos idiomas, viewports móvil y escritorio, animaciones, y deja screenshots de prueba"
+      },
+      "whenToUse": {
+        "en": "",
+        "es": "Úsalo DESPUÉS de cualquier cambio visible; o cuando el usuario diga verifica, prueba, QA, \"revisa que todo funcione\"."
+      },
+      "category": "productivity",
+      "source": "https://github.com/lucasleguizamo/skills/blob/main/plugins/lucas-leguizamo-skills/agents/qa-verifier.md",
+      "install": "/plugin install lucas-leguizamo-skills@lucas",
+      "version": "0.2.0",
+      "updatedAt": "2026-09-07T05:24:23.832Z"
+    },
+    {
+      "slug": "seo-portfolio",
+      "type": "agent",
+      "name": "seo-portfolio",
+      "summary": {
+        "en": "SEO + GEO specialist for lucasleguizamo.com (bilingual Next.js 16 portfolio)",
+        "es": "Especialista SEO + GEO del portafolio bilingüe: metadata, structured data, hreflang, Core Web Vitals, citabilidad por IA y SEO de entidad de marca personal"
+      },
+      "whenToUse": {
+        "en": "",
+        "es": "Invócalo cuando el usuario mencione SEO, posicionamiento, rankings, AI Overviews, schema, sitemap, metadata o visibilidad en Google."
+      },
+      "category": "productivity",
+      "source": "https://github.com/lucasleguizamo/skills/blob/main/plugins/lucas-leguizamo-skills/agents/seo-portfolio.md",
+      "install": "/plugin install lucas-leguizamo-skills@lucas",
+      "version": "0.2.0",
+      "updatedAt": "2026-09-07T05:24:23.836Z"
+    },
     {
       "slug": "site-rebuilder",
       "type": "agent",
@@ -19,10 +145,10 @@
         "es": "Úsalo cuando haya un spec listo para implementar, cuando el usuario quiera darle un giro al sitio, rehacer una sección, o portar una técnica de layout/motion vista en otra página; o diga \"aplica el spec\", \"rehaz la sección de proyectos\", o apply that spec / rebuild the projects section / give the site a new spin."
       },
       "category": "productivity",
-      "source": "https://github.com/lucasleguizamo/skills/blob/main/plugins/lucas-core/agents/site-rebuilder.md",
-      "install": "/plugin install lucas-core@lucas",
-      "version": "0.1.1",
-      "updatedAt": "2026-08-22T03:33:17.000Z"
+      "source": "https://github.com/lucasleguizamo/skills/blob/main/plugins/lucas-leguizamo-skills/agents/site-rebuilder.md",
+      "install": "/plugin install lucas-leguizamo-skills@lucas",
+      "version": "0.2.0",
+      "updatedAt": "2026-09-07T05:24:23.846Z"
     },
     {
       "slug": "site-ripper",
@@ -37,10 +163,10 @@
         "es": "Úsalo cuando el usuario mande una URL y diga replicar, clonar, \"quiero algo como\", referencia, inspiración, awwwards, \"cómo hacen esta animación\", o replicate / clone / \"I want something like this\" / reference / inspiration / \"how do they pull off this animation\"."
       },
       "category": "productivity",
-      "source": "https://github.com/lucasleguizamo/skills/blob/main/plugins/lucas-core/agents/site-ripper.md",
-      "install": "/plugin install lucas-core@lucas",
-      "version": "0.1.1",
-      "updatedAt": "2026-08-22T03:33:17.000Z"
+      "source": "https://github.com/lucasleguizamo/skills/blob/main/plugins/lucas-leguizamo-skills/agents/site-ripper.md",
+      "install": "/plugin install lucas-leguizamo-skills@lucas",
+      "version": "0.2.0",
+      "updatedAt": "2026-09-07T05:24:23.853Z"
     },
     {
       "slug": "skills-cli",
@@ -55,10 +181,10 @@
         "es": "Úsalo cuando el usuario hable del CLI, de `skills <comando>`, del manifest, de publicar en npm o de automatizar su setup, o diga the CLI / the manifest / \"publish to npm\" / \"automate my setup\"."
       },
       "category": "productivity",
-      "source": "https://github.com/lucasleguizamo/skills/blob/main/plugins/lucas-core/agents/skills-cli.md",
-      "install": "/plugin install lucas-core@lucas",
-      "version": "0.1.1",
-      "updatedAt": "2026-08-22T03:33:17.000Z"
+      "source": "https://github.com/lucasleguizamo/skills/blob/main/plugins/lucas-leguizamo-skills/agents/skills-cli.md",
+      "install": "/plugin install lucas-leguizamo-skills@lucas",
+      "version": "0.2.0",
+      "updatedAt": "2026-09-07T05:24:23.856Z"
     },
     {
       "slug": "skillsmith",
@@ -73,28 +199,46 @@
         "es": "Úsalo cuando el usuario diga skill, agente, plugin, marketplace, destilar, empaquetar, \"conviértelo en skill\", \"mis skills están sueltas\", hable de su setup de ~/.claude, o distill / package / \"turn this into a skill\"."
       },
       "category": "productivity",
-      "source": "https://github.com/lucasleguizamo/skills/blob/main/plugins/lucas-core/agents/skillsmith.md",
-      "install": "/plugin install lucas-core@lucas",
-      "version": "0.1.1",
-      "updatedAt": "2026-08-22T03:33:17.000Z"
+      "source": "https://github.com/lucasleguizamo/skills/blob/main/plugins/lucas-leguizamo-skills/agents/skillsmith.md",
+      "install": "/plugin install lucas-leguizamo-skills@lucas",
+      "version": "0.2.0",
+      "updatedAt": "2026-09-07T05:24:23.860Z"
     },
     {
-      "slug": "lucas-core",
-      "type": "plugin",
-      "name": "lucas-core",
+      "slug": "webgl-motion",
+      "type": "agent",
+      "name": "webgl-motion",
       "summary": {
-        "en": "Lucas Leguizamo's own skills and agents: SEO blog articles for CONCAT, product discovery and PRDs, Excalidraw-style diagrams published over HTTPS, and the agents that author skills, build the CLI and reverse-engineer websites",
-        "es": "Skills y agentes de autoría propia de Lucas Leguizamo: artículos de blog para CONCAT, descubrimiento de producto y PRDs, diagramas Excalidraw publicables por HTTPS, y los agentes que crean skills, construyen el CLI y hacen ingeniería inversa de sitios web"
+        "en": "WebGL/GLSL specialist for lucasleguizamo.com",
+        "es": "Especialista WebGL/GLSL: dueño del escenario global —el campo de Stable Fluids, el pase compuesto, la sincronía DOM↔plano, el presupuesto de texturas, el costo de GPU y el gating que lo apaga en táctil y reduced-motion"
+      },
+      "whenToUse": {
+        "en": "",
+        "es": "Invócalo cuando el usuario mencione WebGL, three.js, shader, GLSL, fluido, cursor, distorsión, FBO, canvas, GPU, o \"se siente pesado\"."
+      },
+      "category": "productivity",
+      "source": "https://github.com/lucasleguizamo/skills/blob/main/plugins/lucas-leguizamo-skills/agents/webgl-motion.md",
+      "install": "/plugin install lucas-leguizamo-skills@lucas",
+      "version": "0.2.0",
+      "updatedAt": "2026-09-07T05:24:23.841Z"
+    },
+    {
+      "slug": "lucas-leguizamo-skills",
+      "type": "plugin",
+      "name": "lucas-leguizamo-skills",
+      "summary": {
+        "en": "Lucas Leguizamo's own Claude Code set: the skills he wrote (knowledge graphs, product discovery and PRDs, SEO content, publishable diagrams) and the twelve agents that build, review and QA lucasleguizamo.com — art direction, design-system enforcement, WebGL/motion, SEO, performance, bug hunting, bilingual copy, site reverse-engineering and skill authoring",
+        "es": "Las skills de autoría propia de Lucas Leguizamo y los doce agentes que construyen, revisan y prueban lucasleguizamo.com: grafos de conocimiento, descubrimiento de producto y PRDs, contenido SEO, diagramas publicables, dirección de arte, cumplimiento del design system, WebGL/motion, performance y caza de bugs"
       },
       "whenToUse": {
         "en": "",
         "es": ""
       },
       "category": "productivity",
-      "source": "https://github.com/lucasleguizamo/skills/blob/main/plugins/lucas-core/.claude-plugin/plugin.json",
-      "install": "/plugin install lucas-core@lucas",
-      "version": "0.1.1",
-      "updatedAt": "2026-08-22T03:33:17.000Z"
+      "source": "https://github.com/lucasleguizamo/skills/blob/main/plugins/lucas-leguizamo-skills/.claude-plugin/plugin.json",
+      "install": "/plugin install lucas-leguizamo-skills@lucas",
+      "version": "0.2.0",
+      "updatedAt": "2026-08-22T03:01:40.353Z"
     },
     {
       "slug": "concat-content",
@@ -109,10 +253,28 @@
         "es": "Úsala cuando el usuario diga \"escribe un post\", \"escribe un artículo\", \"crea un post para el blog\", \"redacta contenido para CONCAT\", \"post sobre X\", \"qué post sigue del calendario\", o write a post / write an article / create a blog post for CONCAT / draft CONCAT content."
       },
       "category": "productivity",
-      "source": "https://github.com/lucasleguizamo/skills/blob/main/plugins/lucas-core/skills/concat-content/SKILL.md",
-      "install": "/plugin install lucas-core@lucas",
-      "version": "0.1.1",
-      "updatedAt": "2026-08-22T03:27:24.000Z"
+      "source": "https://github.com/lucasleguizamo/skills/blob/main/plugins/lucas-leguizamo-skills/skills/concat-content/SKILL.md",
+      "install": "/plugin install lucas-leguizamo-skills@lucas",
+      "version": "0.2.0",
+      "updatedAt": "2026-08-22T03:01:50.466Z"
+    },
+    {
+      "slug": "graphify",
+      "type": "skill",
+      "name": "graphify",
+      "summary": {
+        "en": "Use for any question about a codebase, its architecture, file relationships, or project content — especially when graphify-out/ exists, where the question should be treated as a graphify query first",
+        "es": "Convierte cualquier entrada —código, docs, papers, imágenes, video— en un grafo de conocimiento persistente con nodos dios, detección de comunidades y herramientas de consulta, camino y explicación"
+      },
+      "whenToUse": {
+        "en": "",
+        "es": "Úsala para cualquier pregunta sobre un codebase, su arquitectura, las relaciones entre archivos o el contenido de un proyecto — sobre todo si existe graphify-out/, donde la pregunta se trata primero como una consulta a graphify."
+      },
+      "category": "productivity",
+      "source": "https://github.com/lucasleguizamo/skills/blob/main/plugins/lucas-leguizamo-skills/skills/graphify/SKILL.md",
+      "install": "/plugin install lucas-leguizamo-skills@lucas",
+      "version": "0.2.0",
+      "updatedAt": "2026-09-07T05:24:23.796Z"
     },
     {
       "slug": "pm-agent",
@@ -127,10 +289,10 @@
         "es": "Úsala cuando el usuario diga \"hazme un PRD\", \"define el producto\", \"arma el backlog\", \"prioriza estas features\", \"escribe user stories\", \"planea el sprint\", o write me a PRD / define the product / build the backlog / prioritize these features / plan the sprint."
       },
       "category": "productivity",
-      "source": "https://github.com/lucasleguizamo/skills/blob/main/plugins/lucas-core/skills/pm-agent/SKILL.md",
-      "install": "/plugin install lucas-core@lucas",
-      "version": "0.1.1",
-      "updatedAt": "2026-08-22T03:27:24.000Z"
+      "source": "https://github.com/lucasleguizamo/skills/blob/main/plugins/lucas-leguizamo-skills/skills/pm-agent/SKILL.md",
+      "install": "/plugin install lucas-leguizamo-skills@lucas",
+      "version": "0.2.0",
+      "updatedAt": "2026-08-22T03:01:50.472Z"
     },
     {
       "slug": "whiteboard",
@@ -145,10 +307,10 @@
         "es": "Úsala cuando el usuario pida un diagrama, un flujo, un wireframe, un mapa de arquitectura, \"dibújalo\", \"hazme un tablero\", \"publícalo en una página\", o draw a diagram / flow / wireframe / architecture map and publish it."
       },
       "category": "productivity",
-      "source": "https://github.com/lucasleguizamo/skills/blob/main/plugins/lucas-core/skills/whiteboard/SKILL.md",
-      "install": "/plugin install lucas-core@lucas",
-      "version": "0.1.1",
-      "updatedAt": "2026-08-22T03:33:17.000Z"
+      "source": "https://github.com/lucasleguizamo/skills/blob/main/plugins/lucas-leguizamo-skills/skills/whiteboard/SKILL.md",
+      "install": "/plugin install lucas-leguizamo-skills@lucas",
+      "version": "0.2.0",
+      "updatedAt": "2026-08-05T22:05:56.000Z"
     }
   ]
 }

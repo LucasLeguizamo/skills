@@ -1,4 +1,4 @@
-# `@lucasleguizamo/skills`
+# `lucasleguizamo`
 
 A CLI to inventory, version and reinstall a Claude Code setup: skills, agents,
 plugins, hooks and MCP servers.
@@ -8,7 +8,7 @@ bundler. Every command supports `--json`, respects `NO_COLOR`, and never
 writes over `~/.claude` without leaving a backup first.
 
 ```
-npm i -g @lucasleguizamo/skills
+npm i -g lucasleguizamo
 skills --help
 ```
 
@@ -16,20 +16,20 @@ skills --help
 
 | Command | Status | What it does |
 |---|---|---|
-| `skills init [--dry-run]` | ✅ | scans `~/.claude` and generates the manifest |
-| `skills list [--type t]` | ✅ | inventory of this machine, with origin, version and tag |
-| `skills export [--out f]` | ✅ | emits `registry.json` for lucasleguizamo.com/stack |
-| `skills new <skill\|agent\|plugin> <name>` | ✅ | scaffolding that follows the marketplace standard |
-| `skills add <source>` | ⏳ | install a GitHub skill or a marketplace plugin |
-| `skills remove <name>` | ⏳ | uninstall |
-| `skills sync [--dry-run]` | ⏳ | apply the manifest to this machine |
-| `skills doctor` | ⏳ | validate frontmatter, duplicates, paths and versions |
+| `lucasleguizamo init [--dry-run]` | ✅ | scans `~/.claude` and generates the manifest |
+| `lucasleguizamo list [--type t]` | ✅ | inventory of this machine, with origin, version and tag |
+| `lucasleguizamo export [--out f]` | ✅ | emits `registry.json` for lucasleguizamo.com/stack |
+| `lucasleguizamo new <skill\|agent\|plugin> <name>` | ✅ | scaffolding that follows the marketplace standard |
+| `lucasleguizamo add <source>` | ⏳ | install a GitHub skill or a marketplace plugin |
+| `lucasleguizamo remove <name>` | ⏳ | uninstall |
+| `lucasleguizamo sync [--dry-run]` | ⏳ | apply the manifest to this machine |
+| `lucasleguizamo doctor` | ⏳ | validate frontmatter, duplicates, paths and versions |
 
 The ⏳ ones exist as commands: they print "not implemented yet" and exit with
 code 1.
 
 `--help` is the documentation. If anything in this README does not show up in
-`skills <command> --help`, the README is the one that is wrong.
+`lucasleguizamo <command> --help`, the README is the one that is wrong.
 
 ## The manifest: `~/.claude/skills.json`
 
@@ -111,7 +111,7 @@ name, which switches off anything with that name regardless of type.
 
 ## The `registry.json` contract
 
-`skills export` walks the repo's marketplace (`.claude-plugin/marketplace.json`)
+`lucasleguizamo export` walks the repo's marketplace (`.claude-plugin/marketplace.json`)
 and its plugins, and emits a JSON file containing **only what is tagged `mine`**
 and not switched off by `exclude`. It is what `lucasleguizamo.com/stack` consumes to generate static
 pages, so the schema is a contract: breaking it breaks the website.
@@ -135,8 +135,8 @@ pages, so the schema is a contract: breaking it breaks the website.
         "es": "Úsala cuando el usuario pida un diagrama, un flujo, un wireframe…"
       },
       "category": "productivity",
-      "source": "https://github.com/lucasleguizamo/skills/blob/main/plugins/lucas-core/skills/whiteboard/SKILL.md",
-      "install": "/plugin install lucas-core@lucas",
+      "source": "https://github.com/lucasleguizamo/skills/blob/main/plugins/lucas-leguizamo-skills/skills/whiteboard/SKILL.md",
+      "install": "/plugin install lucas-leguizamo-skills@lucas",
       "version": "0.1.1",
       "updatedAt": "2026-08-22T03:04:33.000Z"
     }
@@ -178,7 +178,7 @@ map from slug to the two fields, both optional:
     "summary":   "Dibuja flows, diagramas, wireframes y mapas de arquitectura…",
     "whenToUse": "Úsala cuando el usuario pida un diagrama, un flujo…"
   },
-  "lucas-core": { "summary": "Skills y agentes de autoría propia de Lucas Leguizamo…" }
+  "lucas-leguizamo-skills": { "summary": "Skills y agentes de autoría propia de Lucas Leguizamo…" }
 }
 ```
 
@@ -204,7 +204,7 @@ registry for two reasons: the manifest downgraded it to `vendor` or `unknown`
 (the command names those under `excluded`), or it is listed in `exclude` (those
 are only counted, under `excludedByRule`).
 
-## `skills new`
+## `lucasleguizamo new`
 
 ```
 skills new skill  my-skill     # <base>/skills/my-skill/SKILL.md
@@ -212,7 +212,7 @@ skills new agent  my-agent     # <base>/agents/my-agent.md
 skills new plugin my-plugin    # <base>/my-plugin/.claude-plugin/plugin.json + skills/ + agents/
 ```
 
-Default base: `plugins/lucas-core/` of the marketplace repo you are standing
+Default base: `plugins/lucas-leguizamo-skills/` of the marketplace repo you are standing
 in; with no repo, `~/.claude/`. `--out` forces it.
 
 The templates already carry the standard: `name` in kebab-case identical to the

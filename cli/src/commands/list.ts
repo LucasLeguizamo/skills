@@ -56,7 +56,7 @@ export async function runList(opts: Parsed): Promise<number> {
     return 0;
   }
 
-  if (!manifest) note("Sin manifest todavía: los tags son la clasificación semilla. Corré `skills init`.");
+  if (!manifest) note("Sin manifest todavía: los tags son la clasificación semilla. Corré `lucasleguizamo init`.");
   if (excluded > 0) note(`${excluded} ítem(s) fuera por el campo \`exclude\` del manifest.`);
 
   if (want("skill")) {

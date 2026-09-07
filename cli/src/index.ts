@@ -34,7 +34,7 @@ async function main(): Promise<number> {
     return 0;
   }
 
-  // `skills help <cmd>` y `skills <cmd> --help` son el mismo camino.
+  // `lucasleguizamo help <cmd>` y `lucasleguizamo <cmd> --help` son el mismo camino.
   const target: string =
     opts.command === "help" ? (opts.positionals[0] ?? "root") : opts.command;
   if (opts.help || opts.command === "help") {
@@ -46,7 +46,7 @@ async function main(): Promise<number> {
 
   if (!IMPLEMENTED.has(opts.command as Command)) {
     throw new UserError(
-      `\`skills ${opts.command}\` no implementado aún — llega en la próxima versión.\n` +
+      `\`lucasleguizamo ${opts.command}\` no implementado aún — llega en la próxima versión.\n` +
         "Disponibles hoy: init, list, export, new.",
       "not-implemented",
     );

@@ -3,9 +3,6 @@
     "summary": "Escribe artículos de blog SEO para CONCAT (onconcat.com) — JSX listo para pegar en lib/blog-posts.tsx más el prompt de imagen para nanobanana — dirigidos a dueños de PyMEs de Colombia y LATAM; el artículo siempre se escribe en español",
     "whenToUse": "Úsala cuando el usuario diga \"escribe un post\", \"escribe un artículo\", \"crea un post para el blog\", \"redacta contenido para CONCAT\", \"post sobre X\", \"qué post sigue del calendario\", o write a post / write an article / create a blog post for CONCAT / draft CONCAT content."
   },
-  "lucas-core": {
-    "summary": "Skills y agentes de autoría propia de Lucas Leguizamo: artículos de blog para CONCAT, descubrimiento de producto y PRDs, diagramas Excalidraw publicables por HTTPS, y los agentes que crean skills, construyen el CLI y hacen ingeniería inversa de sitios web"
-  },
   "pm-agent": {
     "summary": "Actúa como Product Manager senior: corre descubrimiento con AskUserQuestion antes de escribir nada y produce visión de producto, backlog priorizado (RICE / MoSCoW), filtro de features, PRD completo o plan de sprint",
     "whenToUse": "Úsala cuando el usuario diga \"hazme un PRD\", \"define el producto\", \"arma el backlog\", \"prioriza estas features\", \"escribe user stories\", \"planea el sprint\", o write me a PRD / define the product / build the backlog / prioritize these features / plan the sprint."
@@ -29,5 +26,44 @@
   "whiteboard": {
     "summary": "Dibuja flows, diagramas, wireframes y mapas de arquitectura estilo FigJam/Excalidraw desde Python (SVG autocontenido + archivo .excalidraw editable + ficha HTML con pan/zoom) y los publica en una web privada con nginx, TLS de Let's Encrypt, puerto no default y URL con token secreto",
     "whenToUse": "Úsala cuando el usuario pida un diagrama, un flujo, un wireframe, un mapa de arquitectura, \"dibújalo\", \"hazme un tablero\", \"publícalo en una página\", o draw a diagram / flow / wireframe / architecture map and publish it."
+  },
+  "lucas-leguizamo-skills": {
+    "summary": "Las skills de autoría propia de Lucas Leguizamo y los doce agentes que construyen, revisan y prueban lucasleguizamo.com: grafos de conocimiento, descubrimiento de producto y PRDs, contenido SEO, diagramas publicables, dirección de arte, cumplimiento del design system, WebGL/motion, performance y caza de bugs"
+  },
+  "graphify": {
+    "summary": "Convierte cualquier entrada —código, docs, papers, imágenes, video— en un grafo de conocimiento persistente con nodos dios, detección de comunidades y herramientas de consulta, camino y explicación",
+    "whenToUse": "Úsala para cualquier pregunta sobre un codebase, su arquitectura, las relaciones entre archivos o el contenido de un proyecto — sobre todo si existe graphify-out/, donde la pregunta se trata primero como una consulta a graphify."
+  },
+  "art-director": {
+    "summary": "Director de arte de lucasleguizamo.com: dueño de la paleta, el lenguaje de materiales, la textura, la escala tipográfica y la jerarquía de lo que el visitante ve primero",
+    "whenToUse": "Invócalo cuando el usuario hable de paleta, colores, tierra, identidad, mood, \"se siente frío/plano\", qué debe destacar en una pantalla, o cuando una sección nueva necesite decidir su registro visual."
+  },
+  "bug-hunter": {
+    "summary": "Caza y cierra bugs: reproduce el fallo, lo mide, lo arregla y demuestra con evidencia que dejó de ocurrir — no deja recomendaciones sin aplicar",
+    "whenToUse": "Invócalo si el usuario menciona bug, roto, no funciona, no se ve, sigue pasando, falla, regresión, o dice \"termínalo cueste lo que cueste\"."
+  },
+  "content-i18n": {
+    "summary": "Redactor bilingüe (es/en) y guardián de i18n: escribe o edita cualquier copy visible entregando siempre español e inglés en el mismo cambio",
+    "whenToUse": "Invócalo cuando el usuario mencione textos, copy, traducción, blog post, descripciones, o agregue cualquier string visible nuevo."
+  },
+  "design-guardian": {
+    "summary": "Hace cumplir el design system: revisa el código contra DESIGN.md —paleta, tipografía, recetas de layout, sistema de motion, interacciones sólo por color, cobertura de reduced-motion— y señala violaciones con arreglos concretos",
+    "whenToUse": "Úsalo ANTES de mergear cualquier cambio visible y al construir UI nueva; o cuando el usuario mencione diseño, UI, estilos, animaciones o componentes nuevos."
+  },
+  "perf-optimizer": {
+    "summary": "Especialista en performance web y peso de assets: Core Web Vitals, optimización de video, imágenes y fuentes, y análisis de bundle",
+    "whenToUse": "Invócalo cuando el usuario mencione performance, peso, velocidad, LCP, CLS, lighthouse, optimizar imágenes/video, o antes de subir cambios con mucho media."
+  },
+  "qa-verifier": {
+    "summary": "QA a nivel navegador: levanta el preview, revisa errores de consola y de red, verifica ambos idiomas, viewports móvil y escritorio, animaciones, y deja screenshots de prueba",
+    "whenToUse": "Úsalo DESPUÉS de cualquier cambio visible; o cuando el usuario diga verifica, prueba, QA, \"revisa que todo funcione\"."
+  },
+  "seo-portfolio": {
+    "summary": "Especialista SEO + GEO del portafolio bilingüe: metadata, structured data, hreflang, Core Web Vitals, citabilidad por IA y SEO de entidad de marca personal",
+    "whenToUse": "Invócalo cuando el usuario mencione SEO, posicionamiento, rankings, AI Overviews, schema, sitemap, metadata o visibilidad en Google."
+  },
+  "webgl-motion": {
+    "summary": "Especialista WebGL/GLSL: dueño del escenario global —el campo de Stable Fluids, el pase compuesto, la sincronía DOM↔plano, el presupuesto de texturas, el costo de GPU y el gating que lo apaga en táctil y reduced-motion",
+    "whenToUse": "Invócalo cuando el usuario mencione WebGL, three.js, shader, GLSL, fluido, cursor, distorsión, FBO, canvas, GPU, o \"se siente pesado\"."
   }
 }
