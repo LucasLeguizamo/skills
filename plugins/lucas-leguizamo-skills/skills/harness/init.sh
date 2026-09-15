@@ -58,11 +58,18 @@ put scripts/check-secrets.sh     scripts/check-secrets.sh
 put scripts/check-package-manager.sh scripts/check-package-manager.sh
 put scripts/sync-labels.sh       scripts/sync-labels.sh
 put claude-settings.json         .claude/settings.json
+put mcp.json                     .mcp.json
 
 if [ -f "$target/.claude/settings.json" ] && ! grep -q check-api-docs "$target/.claude/settings.json"; then
   echo
   echo "  .claude/settings.json exists without the API-contract hook. Add:"
   sed 's/^/    /' "$tpl/claude-settings.json"
+fi
+
+if [ -f "$target/.mcp.json" ] && ! grep -q '"engram"' "$target/.mcp.json"; then
+  echo
+  echo "  .mcp.json exists without engram. Memory needs this server; add:"
+  sed 's/^/    /' "$tpl/mcp.json"
 fi
 
 if [ "$mode" = check ]; then
@@ -75,7 +82,7 @@ cat <<TXT
 
 Next:
   1. Fill in the <TODO>s in AGENTS.md — a contract with <TODO> in it is one nobody follows.
-  2. Adjust the globs in .github/labeler.yml to this repo.
+  2. Adjust the globs in .github/labeler.yml, and the engram project name in .mcp.json.
   3. gh auth status && ./scripts/sync-labels.sh   (creates the labels on GitHub)
   4. Branch protection on main: require PR - 1 approval - Code Owners - apply to admins.
   5. ./scripts/check-filenames.sh && ./scripts/check-api-docs.sh && ./scripts/check-secrets.sh && ./scripts/check-package-manager.sh

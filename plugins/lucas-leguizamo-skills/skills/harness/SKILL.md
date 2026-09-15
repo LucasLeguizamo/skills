@@ -17,7 +17,8 @@ skills/harness/init.sh <repo-path> --dry-run
 It leaves: `AGENTS.md` (the contract), `CLAUDE.md` and `GEMINI.md` (pointers), `.github/`
 (PR template, `labels.yml`, `labeler.yml`, the `pr-labels` workflow),
 `scripts/check-*.sh`, `scripts/sync-labels.sh`, and — only if absent —
-a `.claude/settings.json` carrying the hook that blocks an API route with no contract.
+a `.claude/settings.json` carrying the hook that blocks an API route with no
+contract, plus a `.mcp.json` wiring engram as the repo's memory.
 
 Then **fill in the `<TODO>`s in `AGENTS.md`** with what the repo actually is: folder
 map, stack, commands, sources of truth, agent roster. A contract with `<TODO>` in it

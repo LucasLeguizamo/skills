@@ -139,8 +139,12 @@ Deliberately missing, each with its trigger: <TODO>.
 - This file is the contract. `CLAUDE.md` only points here; do not duplicate rules.
 - **Missing config**: look here first; if the answer is not here, ask with
   `AskUserQuestion` and **write the answer back into this file**.
-- **Memory**: persist decisions and non-obvious discoveries, and check what is
-  already there before redoing analysis. Decisions and their reasons — not what
-  the code already states.
+- **Memory is engram.** Persist decisions, conventions and non-obvious
+  discoveries, and search what is already there before redoing an analysis —
+  decisions and their reasons, never what the code already states. The server is
+  declared in `.mcp.json` at the root (`engram mcp --tools=agent --project <repo>`);
+  if the `mem_*` tools are missing from a session, that entry is the first thing
+  to check. From a shell:
+  `engram save "<title>" "<what and why>" --type decision --project <repo>`.
 - Never commit or push unless asked. Never commit `.env` or keys.
 - Report what you verified and what you did not. "The build passes" means you ran it.

@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "generatedAt": "2026-09-15T01:16:38.000Z",
+  "generatedAt": "2026-09-15T01:33:14.000Z",
   "marketplace": {
     "name": "lucas",
     "install": "/plugin marketplace add lucasleguizamo/skills"
@@ -238,7 +238,7 @@
       "source": "https://github.com/lucasleguizamo/skills/blob/main/plugins/lucas-leguizamo-skills/.claude-plugin/plugin.json",
       "install": "/plugin install lucas-leguizamo-skills@lucas",
       "version": "0.2.0",
-      "updatedAt": "2026-09-15T01:16:38.000Z"
+      "updatedAt": "2026-09-15T01:33:14.000Z"
     },
     {
       "slug": "concat-content",
@@ -292,7 +292,7 @@
       "source": "https://github.com/lucasleguizamo/skills/blob/main/plugins/lucas-leguizamo-skills/skills/harness/SKILL.md",
       "install": "/plugin install lucas-leguizamo-skills@lucas",
       "version": "0.2.0",
-      "updatedAt": "2026-09-15T01:16:38.000Z"
+      "updatedAt": "2026-09-15T01:33:14.000Z"
     },
     {
       "slug": "pm-agent",

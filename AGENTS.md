@@ -122,7 +122,23 @@ Lucas installs into every other repo — `STANDARD.md` is the law and `init.sh`
 installs it. This repo follows it too: its `AGENTS.md`, PR template, labels and
 checks were installed by that same script.
 
-## 10. Working agreements
+## 10. Memory — engram
+
+Memory is engram, and it is declared in `.mcp.json` at the root
+(`engram mcp --tools=agent --project skills`). Persist decisions, conventions and
+non-obvious discoveries; search what is there before redoing an analysis. Never
+store what the code or `git log` already says.
+
+The engram plugin ships hooks and skills but **no MCP server** — without that
+`.mcp.json` entry a session is told to load `mem_save` / `mem_search` and finds
+nothing. If the `mem_*` tools are missing, check that file first. From a shell:
+
+```bash
+engram save "<title>" "<what and why>" --type decision --project skills
+engram search "<query>" --project skills
+```
+
+## 11. Working agreements
 
 - This file is the contract. Harness files point here; do not duplicate rules.
 - **Missing config**: look here first; if the answer is not here, ask, then

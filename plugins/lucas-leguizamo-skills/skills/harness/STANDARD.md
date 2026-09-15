@@ -256,13 +256,53 @@ Where something is published (npm, a CLI), `release-please` automates it.
 
 > Source: `FT/free-admin` (a 16-row router) · `emihs` §8 · `FT/ai-native`.
 
-## 10. Memory
+## 10. Memory — engram, in every repo
 
-Persist decisions, conventions and non-obvious discoveries — and check what is
-already there before redoing the analysis. Memory is for decisions and their
-reasons, not for what the code already states.
+**Memory is engram.** Not a scratch file, not a `notes.md` nobody reads, not the
+model's recollection of a session that has since been summarized away.
 
-> Source: `emihs` §9 (engram over MCP, the CLI as fallback).
+Persist decisions, conventions and non-obvious discoveries — and search what is
+already there *before* redoing an analysis. Memory is for decisions and their
+reasons; never for what the code already states. If `git log` or the code answers
+it, it does not belong in memory.
+
+Every repo declares the server itself, in `.mcp.json` at the root:
+
+```json
+{
+  "mcpServers": {
+    "engram": {
+      "type": "stdio",
+      "command": "engram",
+      "args": ["mcp", "--tools=agent", "--project", "<repo>"]
+    }
+  }
+}
+```
+
+`--project` is explicit on purpose: without it engram guesses from the working
+directory, and a worktree or a nested checkout files its memories under the wrong
+name, where nobody will search for them.
+
+**The engram plugin ships hooks and skills but no MCP server.** Its SessionStart
+hook tells the session to load `mem_save`, `mem_search` and `mem_context` — and in
+a repo with no `.mcp.json` entry those tools do not exist, so the session is told
+to use tools it cannot call and quietly falls back to remembering nothing. If the
+`mem_*` tools are missing, that entry is the first thing to check.
+
+The CLI is the fallback, and the only option from a shell:
+
+```bash
+engram save "<title>" "<what and why>" --type decision --project <repo>
+engram search "<query>" --project <repo>
+```
+
+It needs the `engram` binary on `PATH` (Homebrew puts it in `/opt/homebrew/bin`).
+
+> Source: `emihs` §9 and its `.mcp.json` — the one repo that had this wired.
+> **Measured:** the session that wrote this standard was told by the engram hook to
+> load the `mem_*` tools, found none, and had no memory for the rest of the work.
+> That is the failure this rule exists to prevent.
 
 ## 11. Stack defaults
 
