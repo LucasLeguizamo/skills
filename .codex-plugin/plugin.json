@@ -1,0 +1,38 @@
+{
+  "name": "lucas-leguizamo-skills",
+  "version": "0.2.0",
+  "description": "Lucas Leguizamo's skills and agents: knowledge graphs, product discovery and PRDs, SEO content, publishable diagrams, and the harness that installs his engineering standard into any repo.",
+  "author": {
+    "name": "Lucas Leguizamo",
+    "url": "https://lucasleguizamo.com"
+  },
+  "homepage": "https://github.com/LucasLeguizamo/skills",
+  "repository": "https://github.com/LucasLeguizamo/skills",
+  "license": "MIT",
+  "keywords": [
+    "skills",
+    "knowledge-graph",
+    "product-management",
+    "prd",
+    "seo",
+    "diagrams",
+    "engineering-standard",
+    "spanish",
+    "latam"
+  ],
+  "skills": "./plugins/lucas-leguizamo-skills/skills/",
+  "hooks": {},
+  "interface": {
+    "displayName": "Lucas Leguizamo Skills",
+    "shortDescription": "Knowledge graphs, PRDs, SEO content, diagrams and a repo engineering standard",
+    "longDescription": "Turn any input into a queryable knowledge graph, run product discovery through structured questions, write SEO articles, publish diagrams, and install a complete engineering contract — AGENTS.md, PR template, labels and runnable checks — into any repository.",
+    "developerName": "Lucas Leguizamo",
+    "category": "Developer Tools",
+    "capabilities": ["Interactive", "Read", "Write"],
+    "defaultPrompt": [
+      "Set up the engineering standard in this repo.",
+      "Turn this codebase into a knowledge graph."
+    ],
+    "websiteURL": "https://lucasleguizamo.com"
+  }
+}

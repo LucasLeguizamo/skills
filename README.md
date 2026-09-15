@@ -1,26 +1,38 @@
 # skills
 
-Claude Code plugin marketplace by [Lucas Leguizamo](https://lucasleguizamo.com).
-One plugin for now — `lucas-leguizamo-skills` — holding the skills and agents he wrote
-himself. Install it once and update it with `/plugin update`, instead of
-copying loose files into `~/.claude`.
+Skills, agents and an engineering standard by
+[Lucas Leguizamo](https://lucasleguizamo.com) — packaged so **any** coding agent
+can install them, not only Claude Code.
 
-The skills are authored in English so anyone can read and fork them, and they
-keep their Spanish trigger phrases: Lucas works in Spanish, so both languages
-have to fire the same skill.
+The skills live in exactly one place, `plugins/lucas-leguizamo-skills/skills/`.
+Each harness gets a thin manifest that points at that directory; nothing is ever
+copied or duplicated. Adding support for another agent means adding a manifest.
+
+They are written in English so anyone can read and fork them, and they keep their
+Spanish trigger phrases: Lucas works in Spanish, so both languages have to fire
+the same skill.
 
 ## Install
 
-```
-/plugin marketplace add lucasleguizamo/skills
-/plugin install lucas-leguizamo-skills@lucas
-```
+| Harness | How | Manifest |
+|---|---|---|
+| **Claude Code** | `/plugin marketplace add lucasleguizamo/skills` then `/plugin install lucas-leguizamo-skills@lucas` | `.claude-plugin/marketplace.json` |
+| **Codex** | point Codex at this repo as a plugin source | `.codex-plugin/plugin.json` |
+| **Cursor** | point Cursor at this repo as a plugin source | `.cursor-plugin/plugin.json` |
+| **Devin** | point Devin at this repo as a plugin source | `.devin-plugin/plugin.json` |
+| **Gemini CLI** | install as an extension; context comes from `GEMINI.md` | `gemini-extension.json` |
+| **Anything else** | clone the repo and point the agent at `plugins/lucas-leguizamo-skills/skills/` | `.agents/plugins/marketplace.json` |
 
-Update:
+Update on Claude Code with `/plugin update lucas-leguizamo-skills`.
 
-```
-/plugin update lucas-leguizamo-skills
-```
+The manifest shapes for the non-Claude harnesses are mirrored from
+[obra/superpowers](https://github.com/obra/superpowers), which ships one skills
+directory to nine of them. They have not been verified against each vendor's own
+documentation — if a harness rejects one, the fix belongs here.
+
+Every manifest carries the same version, listed in `.version-bump.json`:
+`./scripts/bump-version.sh <version>` moves them together and
+`./scripts/check-versions.sh` fails when one drifts.
 
 ## What `lucas-leguizamo-skills` ships (v0.2.0)
 
@@ -90,7 +102,7 @@ source of truth. The Spanish for the website lives in one file, `i18n/es.json`
 
 ## Curation
 
-`AUDIT.md` classifies everything in `~/.claude` as `mine` (own work, ships in
+`audit.md` classifies everything in `~/.claude` as `mine` (own work, ships in
 the plugin), `vendor` (third-party, documented only so it can be reinstalled)
 or `dead` (deletion candidate). Nothing third-party is republished here: the
 original marketplace is referenced instead.

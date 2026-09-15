@@ -47,6 +47,7 @@ put() {
 echo "Harness -> $target  [$mode]"
 put AGENTS.md                    AGENTS.md
 put CLAUDE.md                    CLAUDE.md
+put GEMINI.md                    GEMINI.md
 put pull_request_template.md     .github/pull_request_template.md
 put labels.yml                   .github/labels.yml
 put labeler.yml                  .github/labeler.yml
@@ -54,6 +55,7 @@ put workflows/pr-labels.yml      .github/workflows/pr-labels.yml
 put scripts/check-filenames.sh   scripts/check-filenames.sh
 put scripts/check-api-docs.sh    scripts/check-api-docs.sh
 put scripts/check-secrets.sh     scripts/check-secrets.sh
+put scripts/check-package-manager.sh scripts/check-package-manager.sh
 put scripts/sync-labels.sh       scripts/sync-labels.sh
 put claude-settings.json         .claude/settings.json
 
@@ -76,5 +78,5 @@ Next:
   2. Adjust the globs in .github/labeler.yml to this repo.
   3. gh auth status && ./scripts/sync-labels.sh   (creates the labels on GitHub)
   4. Branch protection on main: require PR - 1 approval - Code Owners - apply to admins.
-  5. ./scripts/check-filenames.sh && ./scripts/check-api-docs.sh && ./scripts/check-secrets.sh
+  5. ./scripts/check-filenames.sh && ./scripts/check-api-docs.sh && ./scripts/check-secrets.sh && ./scripts/check-package-manager.sh
 TXT

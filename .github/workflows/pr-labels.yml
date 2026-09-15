@@ -1,0 +1,87 @@
+name: pr-labels
+
+on:
+  pull_request_target:
+    types: [opened, synchronize, reopened, labeled, unlabeled, edited]
+
+permissions:
+  pull-requests: write
+  contents: read
+
+jobs:
+  labels:
+    runs-on: ubuntu-latest
+    steps:
+      # Area labels come from the changed paths: the mapping lives in
+      # .github/labeler.yml and the official action applies it. One source.
+      - uses: actions/checkout@v4
+      - uses: actions/labeler@v5
+        with:
+          configuration-path: .github/labeler.yml
+          sync-labels: false
+
+      - name: Type label and risk requirements
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+          PR: ${{ github.event.pull_request.number }}
+          TITLE: ${{ github.event.pull_request.title }}
+          DRAFT: ${{ github.event.pull_request.draft }}
+        run: |
+          set -euo pipefail
+
+          labels() { gh api "repos/$REPO/issues/$PR/labels" --jq '.[].name'; }
+          has() { grep -qx "$1" <<<"$(labels)"; }
+
+          # Type label from the Conventional Commits title, when none is set yet.
+          if ! grep -qE '^type:' <<<"$(labels)"; then
+            case "$TITLE" in
+              feat*)        t=type:feat ;;
+              fix*|hotfix*) t=type:fix ;;
+              refactor*)    t=type:refactor ;;
+              chore*)       t=type:chore ;;
+              docs*)        t=type:docs ;;
+              *)            t="" ;;
+            esac
+            [ -n "$t" ] && gh pr edit "$PR" --repo "$REPO" --add-label "$t"
+          fi
+
+          fail=0
+          err() { echo "::error::$1"; fail=1; }
+
+          grep -qE '^type:' <<<"$(labels)" ||
+            err "Missing type label: type:feat | type:fix | type:docs | type:chore | type:refactor"
+
+          # db-migration demands the exact SQL written in the PR body.
+          if has db-migration; then
+            body=$(gh api "repos/$REPO/pulls/$PR" --jq '.body // ""')
+            if ! grep -q '```sql' <<<"$body" || grep -qi 'paste here' <<<"$body"; then
+              err 'db-migration PR: paste the exact SQL in a ```sql block in the body.'
+            fi
+          fi
+
+          if has depends-on-pr; then
+            err "Blocked by depends-on-pr. Remove the label once the prior PR is merged."
+          fi
+
+          has needs-followup-pr &&
+            echo "::notice::needs-followup-pr: describe the follow-up PR in the body before merging."
+
+          [ "$fail" -eq 0 ] && exit 0
+
+          # ponytail: on a free org plan there are no required status checks or
+          # rulesets on private repos. A draft cannot be merged: that is the only
+          # hard block available.
+          if [ "$DRAFT" != "true" ]; then
+            gh pr ready "$PR" --repo "$REPO" --undo
+            marker="<!-- pr-labels -->"
+            prev=$(gh api "repos/$REPO/issues/$PR/comments?per_page=100" \
+                     --jq "[.[] | select(.body | contains(\"$marker\"))] | length")
+            if [ "$prev" -eq 0 ]; then
+              gh pr comment "$PR" --repo "$REPO" --body "$marker
+**This PR was flipped to draft: it is missing labels.** See the \`pr-labels\` check errors above.
+
+Once it is labeled and the check passes, hit **Ready for review**. Contract: [AGENTS.md](../blob/main/AGENTS.md#8-git-and-prs)."
+            fi
+          fi
+          exit 1

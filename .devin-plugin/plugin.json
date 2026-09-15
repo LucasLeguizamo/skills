@@ -1,0 +1,14 @@
+{
+  "name": "lucas-leguizamo-skills",
+  "version": "0.2.0",
+  "description": "Knowledge graphs, product discovery and PRDs, SEO content, diagrams, and an installable engineering standard.",
+  "author": {
+    "name": "Lucas Leguizamo",
+    "url": "https://lucasleguizamo.com"
+  },
+  "homepage": "https://github.com/LucasLeguizamo/skills",
+  "repository": "https://github.com/LucasLeguizamo/skills",
+  "license": "MIT",
+  "keywords": ["skills", "knowledge-graph", "prd", "seo", "diagrams", "engineering-standard"],
+  "skills": "./plugins/lucas-leguizamo-skills/skills/"
+}

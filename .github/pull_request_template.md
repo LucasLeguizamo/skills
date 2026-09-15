@@ -82,7 +82,7 @@ it, and never left blank at merge time.
 - [ ] Mind map included, or explicitly marked N/A
 - [ ] Screenshots for every screen touched, or explicitly marked N/A
 - [ ] Every decision has a proposer and a human approver
-- [ ] `./scripts/check-filenames.sh && ./scripts/check-api-docs.sh && ./scripts/check-secrets.sh && ./scripts/check-package-manager.sh`
+- [ ] `./scripts/check-filenames.sh && ./scripts/check-api-docs.sh && ./scripts/check-secrets.sh`
 - [ ] Lint and build pass
 - [ ] New API route ships its `route.md` beside it
 - [ ] Functional change to published code → SemVer bump + `CHANGELOG.md` entry

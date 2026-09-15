@@ -48,6 +48,10 @@ Enforced by `./scripts/check-filenames.sh`.
 
 <TODO: the stack in one line>
 
+**pnpm is the package manager. Never npm, never yarn** — one lockfile,
+`pnpm-lock.yaml`, is what CI and the host install from. Enforced by
+`./scripts/check-package-manager.sh`.
+
 ```bash
 <TODO: dev>
 <TODO: lint>
@@ -107,7 +111,7 @@ Definitions in `.github/labels.yml`, path mapping in `.github/labeler.yml`,
 Before opening a PR:
 
 ```bash
-./scripts/check-filenames.sh && ./scripts/check-api-docs.sh && ./scripts/check-secrets.sh && <TODO: lint && build>
+./scripts/check-filenames.sh && ./scripts/check-api-docs.sh && ./scripts/check-secrets.sh && ./scripts/check-package-manager.sh && <TODO: lint && build>
 ```
 
 **Who merges: <TODO: name>.** Branch protection on `main`: require a PR ·

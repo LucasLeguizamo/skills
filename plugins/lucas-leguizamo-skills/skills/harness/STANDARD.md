@@ -12,11 +12,15 @@ Written in English, like everything in this repository: it is public.
 
 ---
 
-## 1. The contract lives in one file
+## 1. The contract lives in one file, and it is harness-neutral
 
-`AGENTS.md` at the root is the law of the repo. `CLAUDE.md` only references it —
-it never restates a rule. If the file and the code disagree, the file wins: fix
-the code.
+`AGENTS.md` at the root is the law of the repo — the one file every coding agent
+already reads, whichever vendor built it. `CLAUDE.md`, `GEMINI.md` and any future
+harness file are **pointers**: three lines each, sending the reader to `AGENTS.md`.
+They never restate a rule. A rule written twice is a rule that will disagree with
+itself, and the copy the agent happens to read is the one that wins.
+
+If the contract and the code disagree, the contract wins: fix the code.
 
 What an `AGENTS.md` has to answer, in this order: repo map · sources of truth
 ranked by authority · language policy · file naming · stack and commands · data
@@ -25,8 +29,15 @@ agreements.
 
 Keeping it short is part of the contract: **every session pays for it in context.**
 
+The same rule holds for a repo that *publishes* something to agents rather than
+just being worked on by them: one source directory, and one thin manifest per
+harness pointing at it. Never a copy, never a symlink half the tools cannot
+follow, and every manifest's version listed in one file so a check can prove they
+agree.
+
 > Source: `Makers/emihs/AGENTS.md` (254 lines, the most complete one) · `FT/mcp` ·
-> `Makers/ai-job-search` ("thin-pointer design").
+> `Makers/ai-job-search` ("thin-pointer design") · the multi-harness layout of
+> [obra/superpowers](https://github.com/obra/superpowers).
 
 ## 2. Language: one layer, one language
 
@@ -166,7 +177,7 @@ administrators. Until that is on, "only X merges" is a habit, not a control.
 Local first; CI when it exists. The one-liner lives in `AGENTS.md`:
 
 ```bash
-./scripts/check-filenames.sh && ./scripts/check-api-docs.sh && ./scripts/check-secrets.sh && <lint> && <build>
+./scripts/check-filenames.sh && ./scripts/check-api-docs.sh && ./scripts/check-secrets.sh && ./scripts/check-package-manager.sh && <lint> && <build>
 ```
 
 When the repo has an end-to-end flow worth verifying (server, routes,
@@ -175,6 +186,30 @@ hits every surface and reports `PASS` / `FAIL` / `BLOCKED` — **`BLOCKED` is a
 missing credential or external config, not a bug.** Run it in a loop until green.
 
 > Source: `emihs/scripts/check-*.sh` · `CONCAT/open-ticket/scripts/harness.sh`.
+
+## 6b. pnpm, always
+
+**pnpm is the package manager. Never npm, never yarn.** One lockfile is the
+source of truth for what actually gets installed — CI, the host and every machine
+resolve from it. A second lockfile from another tool resolves different versions
+of the same dependency tree, and the one that wins is whichever command the next
+person happens to type. That is how a build passes locally and fails in
+production with a dependency nobody chose.
+
+`./scripts/check-package-manager.sh` makes it a check instead of a habit: it
+fails on a tracked `package-lock.json`, `yarn.lock` or `npm-shrinkwrap.json`, and
+on a `package.json` whose own scripts call `npm run` or `yarn` — those send every
+contributor straight back to the wrong tool.
+
+Converting an existing project is two steps: `pnpm import` reads the npm lockfile
+and writes `pnpm-lock.yaml`, then the old lockfile is deleted in the same commit.
+Leaving both is the worst of the three states.
+
+> Source: `emihs` §4 ("one lockfile, `pnpm-lock.yaml`, is what Vercel and CI
+> install from") · `free-admin` and `v2` AGENTS.md.
+> **Measured:** `free-admin` was carrying a tracked `package-lock.json` beside its
+> `pnpm-lock.yaml`, and the `skills` CLI ran on npm entirely. Both found by the
+> check on the day it was written — which is the argument for the check.
 
 ## 7. Secrets
 
@@ -236,8 +271,8 @@ reasons, not for what the code already states.
 - **Backticks inside a template literal** (GLSL, colocated CSS) are banned, comments
   included. They close the string and take the whole project's parse down with them.
   It has happened four times in `lucas-leguizamo`.
-- **pnpm**, one lockfile. Server Components by default; `"use client"` only for
-  state, effects or browser APIs, as deep in the tree as possible.
+- Server Components by default; `"use client"` only for state, effects or browser
+  APIs, as deep in the tree as possible.
 - No new dependency for what the platform, CSS, or an installed package already
   does. Justify every addition in one line in the PR.
 - Design tokens in a single file; a new colour becomes a token, never a hardcoded

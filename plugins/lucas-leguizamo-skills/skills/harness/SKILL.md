@@ -14,7 +14,7 @@ skills/harness/init.sh <repo-path>        # idempotent; never overwrites what ex
 skills/harness/init.sh <repo-path> --dry-run
 ```
 
-It leaves: `AGENTS.md` (the contract), `CLAUDE.md` (a pointer), `.github/`
+It leaves: `AGENTS.md` (the contract), `CLAUDE.md` and `GEMINI.md` (pointers), `.github/`
 (PR template, `labels.yml`, `labeler.yml`, the `pr-labels` workflow),
 `scripts/check-*.sh`, `scripts/sync-labels.sh`, and — only if absent —
 a `.claude/settings.json` carrying the hook that blocks an API route with no contract.

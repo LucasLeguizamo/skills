@@ -73,7 +73,7 @@ Shape:
 
 The classification is derived from the lockfile (`~/.agents/.skill-lock.json`):
 anything that came from someone else's repo is `vendor`. The human verdicts in
-`AUDIT.md` are used as the seed. **A tag you edit by hand wins**: `init` keeps
+`audit.md` are used as the seed. **A tag you edit by hand wins**: `init` keeps
 it.
 
 ### `exclude`: what is not managed yet

@@ -36,8 +36,8 @@
   ],
   "scripts": {
     "build": "tsc -p tsconfig.json && chmod +x dist/index.js",
-    "test": "npm run build && node --test test/*.test.js",
-    "prepublishOnly": "npm run build"
+    "test": "pnpm build && node --test test/*.test.js",
+    "prepublishOnly": "pnpm build"
   },
   "devDependencies": {
     "@types/node": "^24.0.0",

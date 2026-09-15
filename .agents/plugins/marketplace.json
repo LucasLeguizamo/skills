@@ -1,0 +1,20 @@
+{
+  "name": "lucas",
+  "interface": {
+    "displayName": "Lucas Leguizamo Skills"
+  },
+  "plugins": [
+    {
+      "name": "lucas-leguizamo-skills",
+      "source": {
+        "source": "url",
+        "url": "./plugins/lucas-leguizamo-skills"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "NONE"
+      },
+      "category": "Developer Tools"
+    }
+  ]
+}
