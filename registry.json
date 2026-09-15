@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "generatedAt": "2026-09-07T05:24:23.860Z",
+  "generatedAt": "2026-09-15T00:56:49.596Z",
   "marketplace": {
     "name": "lucas",
     "install": "/plugin marketplace add lucasleguizamo/skills"
@@ -22,7 +22,7 @@
       "source": "https://github.com/lucasleguizamo/skills/blob/main/plugins/lucas-leguizamo-skills/agents/art-director.md",
       "install": "/plugin install lucas-leguizamo-skills@lucas",
       "version": "0.2.0",
-      "updatedAt": "2026-09-07T05:24:23.808Z"
+      "updatedAt": "2026-09-07T05:28:38.000Z"
     },
     {
       "slug": "bug-hunter",
@@ -40,7 +40,7 @@
       "source": "https://github.com/lucasleguizamo/skills/blob/main/plugins/lucas-leguizamo-skills/agents/bug-hunter.md",
       "install": "/plugin install lucas-leguizamo-skills@lucas",
       "version": "0.2.0",
-      "updatedAt": "2026-09-07T05:24:23.815Z"
+      "updatedAt": "2026-09-07T05:28:38.000Z"
     },
     {
       "slug": "content-i18n",
@@ -58,7 +58,7 @@
       "source": "https://github.com/lucasleguizamo/skills/blob/main/plugins/lucas-leguizamo-skills/agents/content-i18n.md",
       "install": "/plugin install lucas-leguizamo-skills@lucas",
       "version": "0.2.0",
-      "updatedAt": "2026-09-07T05:24:23.819Z"
+      "updatedAt": "2026-09-07T05:28:38.000Z"
     },
     {
       "slug": "design-guardian",
@@ -76,7 +76,7 @@
       "source": "https://github.com/lucasleguizamo/skills/blob/main/plugins/lucas-leguizamo-skills/agents/design-guardian.md",
       "install": "/plugin install lucas-leguizamo-skills@lucas",
       "version": "0.2.0",
-      "updatedAt": "2026-09-07T05:24:23.825Z"
+      "updatedAt": "2026-09-07T05:28:38.000Z"
     },
     {
       "slug": "perf-optimizer",
@@ -94,7 +94,7 @@
       "source": "https://github.com/lucasleguizamo/skills/blob/main/plugins/lucas-leguizamo-skills/agents/perf-optimizer.md",
       "install": "/plugin install lucas-leguizamo-skills@lucas",
       "version": "0.2.0",
-      "updatedAt": "2026-09-07T05:24:23.829Z"
+      "updatedAt": "2026-09-07T05:28:38.000Z"
     },
     {
       "slug": "qa-verifier",
@@ -112,7 +112,7 @@
       "source": "https://github.com/lucasleguizamo/skills/blob/main/plugins/lucas-leguizamo-skills/agents/qa-verifier.md",
       "install": "/plugin install lucas-leguizamo-skills@lucas",
       "version": "0.2.0",
-      "updatedAt": "2026-09-07T05:24:23.832Z"
+      "updatedAt": "2026-09-07T05:28:38.000Z"
     },
     {
       "slug": "seo-portfolio",
@@ -130,7 +130,7 @@
       "source": "https://github.com/lucasleguizamo/skills/blob/main/plugins/lucas-leguizamo-skills/agents/seo-portfolio.md",
       "install": "/plugin install lucas-leguizamo-skills@lucas",
       "version": "0.2.0",
-      "updatedAt": "2026-09-07T05:24:23.836Z"
+      "updatedAt": "2026-09-07T05:28:38.000Z"
     },
     {
       "slug": "site-rebuilder",
@@ -148,7 +148,7 @@
       "source": "https://github.com/lucasleguizamo/skills/blob/main/plugins/lucas-leguizamo-skills/agents/site-rebuilder.md",
       "install": "/plugin install lucas-leguizamo-skills@lucas",
       "version": "0.2.0",
-      "updatedAt": "2026-09-07T05:24:23.846Z"
+      "updatedAt": "2026-09-07T05:28:38.000Z"
     },
     {
       "slug": "site-ripper",
@@ -166,25 +166,25 @@
       "source": "https://github.com/lucasleguizamo/skills/blob/main/plugins/lucas-leguizamo-skills/agents/site-ripper.md",
       "install": "/plugin install lucas-leguizamo-skills@lucas",
       "version": "0.2.0",
-      "updatedAt": "2026-09-07T05:24:23.853Z"
+      "updatedAt": "2026-09-07T05:28:38.000Z"
     },
     {
       "slug": "skills-cli",
       "type": "agent",
       "name": "skills-cli",
       "summary": {
-        "en": "Engineers the open-source `skills` CLI (Node 24 + TypeScript, zero runtime dependencies) that manages Claude Code skills, agents and plugins",
+        "en": "Engineers the open-source `lucasleguizamo` CLI (Node 24 + TypeScript, zero runtime dependencies) that manages Claude Code skills, agents and plugins",
         "es": "Ingeniero del CLI open source `skills` (Node 24 + TypeScript, cero dependencias de runtime) que gestiona skills, agentes y plugins de Claude Code"
       },
       "whenToUse": {
-        "en": "Use when the user talks about the CLI, `skills <command>`, the manifest, publishing to npm, automating their setup, or dice el CLI, el manifest, \"publicar en npm\", \"automatizar mi setup\".",
+        "en": "Use when the user talks about the CLI, `lucasleguizamo <command>`, the manifest, publishing to npm, automating their setup, or dice el CLI, el manifest, \"publicar en npm\", \"automatizar mi setup\".",
         "es": "Úsalo cuando el usuario hable del CLI, de `skills <comando>`, del manifest, de publicar en npm o de automatizar su setup, o diga the CLI / the manifest / \"publish to npm\" / \"automate my setup\"."
       },
       "category": "productivity",
       "source": "https://github.com/lucasleguizamo/skills/blob/main/plugins/lucas-leguizamo-skills/agents/skills-cli.md",
       "install": "/plugin install lucas-leguizamo-skills@lucas",
       "version": "0.2.0",
-      "updatedAt": "2026-09-07T05:24:23.856Z"
+      "updatedAt": "2026-09-07T05:28:38.000Z"
     },
     {
       "slug": "skillsmith",
@@ -202,7 +202,7 @@
       "source": "https://github.com/lucasleguizamo/skills/blob/main/plugins/lucas-leguizamo-skills/agents/skillsmith.md",
       "install": "/plugin install lucas-leguizamo-skills@lucas",
       "version": "0.2.0",
-      "updatedAt": "2026-09-07T05:24:23.860Z"
+      "updatedAt": "2026-09-07T05:28:38.000Z"
     },
     {
       "slug": "webgl-motion",
@@ -220,7 +220,7 @@
       "source": "https://github.com/lucasleguizamo/skills/blob/main/plugins/lucas-leguizamo-skills/agents/webgl-motion.md",
       "install": "/plugin install lucas-leguizamo-skills@lucas",
       "version": "0.2.0",
-      "updatedAt": "2026-09-07T05:24:23.841Z"
+      "updatedAt": "2026-09-07T05:28:38.000Z"
     },
     {
       "slug": "lucas-leguizamo-skills",
@@ -238,7 +238,7 @@
       "source": "https://github.com/lucasleguizamo/skills/blob/main/plugins/lucas-leguizamo-skills/.claude-plugin/plugin.json",
       "install": "/plugin install lucas-leguizamo-skills@lucas",
       "version": "0.2.0",
-      "updatedAt": "2026-08-22T03:01:40.353Z"
+      "updatedAt": "2026-09-07T05:28:38.000Z"
     },
     {
       "slug": "concat-content",
@@ -256,7 +256,7 @@
       "source": "https://github.com/lucasleguizamo/skills/blob/main/plugins/lucas-leguizamo-skills/skills/concat-content/SKILL.md",
       "install": "/plugin install lucas-leguizamo-skills@lucas",
       "version": "0.2.0",
-      "updatedAt": "2026-08-22T03:01:50.466Z"
+      "updatedAt": "2026-09-07T05:28:38.000Z"
     },
     {
       "slug": "graphify",
@@ -274,7 +274,25 @@
       "source": "https://github.com/lucasleguizamo/skills/blob/main/plugins/lucas-leguizamo-skills/skills/graphify/SKILL.md",
       "install": "/plugin install lucas-leguizamo-skills@lucas",
       "version": "0.2.0",
-      "updatedAt": "2026-09-07T05:24:23.796Z"
+      "updatedAt": "2026-09-07T05:28:38.000Z"
+    },
+    {
+      "slug": "harness",
+      "type": "skill",
+      "name": "harness",
+      "summary": {
+        "en": "Installs and audits Lucas Leguizamo's engineering standard in any repo — AGENTS.md as the contract, a colocated contract for every public API, a mandatory PR template and labels, local checks before the PR, SemVer plus CHANGELOG, and an agent roster",
+        "es": "Instala y verifica tu estándar de features en cualquier repo: AGENTS.md como contrato, contratos colocados junto a las APIs públicas, plantilla y etiquetado obligatorio de PRs, checks locales antes del PR, SemVer + CHANGELOG y roster de agentes"
+      },
+      "whenToUse": {
+        "en": "Use it when starting a new project, adopting an existing repo, when the user says \"harness\", \"initial setup\", \"the standard\", \"my conventions\", \"arnés\", \"mis convenciones\", or when a repo has no AGENTS.md or pull request template.",
+        "es": "Úsala al arrancar un proyecto nuevo, al adoptar un repo existente, o cuando digas \"arnés\", \"setup inicial\", \"estándar\", \"mis convenciones\" — y cuando un repo no tenga AGENTS.md ni plantilla de PR."
+      },
+      "category": "productivity",
+      "source": "https://github.com/lucasleguizamo/skills/blob/main/plugins/lucas-leguizamo-skills/skills/harness/SKILL.md",
+      "install": "/plugin install lucas-leguizamo-skills@lucas",
+      "version": "0.2.0",
+      "updatedAt": "2026-09-15T00:56:49.596Z"
     },
     {
       "slug": "pm-agent",
@@ -292,7 +310,7 @@
       "source": "https://github.com/lucasleguizamo/skills/blob/main/plugins/lucas-leguizamo-skills/skills/pm-agent/SKILL.md",
       "install": "/plugin install lucas-leguizamo-skills@lucas",
       "version": "0.2.0",
-      "updatedAt": "2026-08-22T03:01:50.472Z"
+      "updatedAt": "2026-09-07T05:28:38.000Z"
     },
     {
       "slug": "whiteboard",
@@ -310,7 +328,7 @@
       "source": "https://github.com/lucasleguizamo/skills/blob/main/plugins/lucas-leguizamo-skills/skills/whiteboard/SKILL.md",
       "install": "/plugin install lucas-leguizamo-skills@lucas",
       "version": "0.2.0",
-      "updatedAt": "2026-08-05T22:05:56.000Z"
+      "updatedAt": "2026-09-07T05:28:38.000Z"
     }
   ]
 }

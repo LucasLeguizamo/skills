@@ -1,0 +1,18 @@
+# Path-to-label mapping for PRs, applied by the pr-labels workflow through the
+# official actions/labeler. One source of truth for areas.
+# <TODO: adjust the globs to this repo>
+"area:api":
+  - changed-files:
+      - any-glob-to-any-file: ["**/api/**", "src/mcp/**", "src/commands/**"]
+"area:agents":
+  - changed-files:
+      - any-glob-to-any-file: ["AGENTS.md", "CLAUDE.md", ".claude/**"]
+"area:ci":
+  - changed-files:
+      - any-glob-to-any-file: [".github/**", "scripts/**"]
+"area:docs":
+  - changed-files:
+      - any-glob-to-any-file: ["docs/**", "**/*.md"]
+"area:app":
+  - changed-files:
+      - any-glob-to-any-file: ["src/**", "app/**", "web/**"]
