@@ -1,7 +1,7 @@
 {
   "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
   "name": "lucas",
-  "description": "Lucas Leguizamo's marketplace: his own Claude Code skills and agents, packaged as a plugin so they update with a single command.",
+  "description": "Lucas Leguizamo's marketplace: an installable engineering standard for building with AI agents, plus the skills and agents he wrote — packaged so they update with one command.",
   "owner": {
     "name": "Lucas Leguizamo",
     "url": "https://github.com/lucasleguizamo"
@@ -10,7 +10,7 @@
     {
       "name": "lucas-leguizamo-skills",
       "source": "./plugins/lucas-leguizamo-skills",
-      "description": "Lucas's own skills and the agents that build, review and QA his site: knowledge graphs, product discovery, SEO content, diagrams, art direction, design-system enforcement, WebGL/motion, performance and bug hunting.",
+      "description": "Engineering standard and skills for builders who ship with AI agents: AGENTS.md as the contract, PR discipline with a named human approver, runnable checks, agent delegation, PRDs and product discovery, knowledge graphs, SEO content and publishable diagrams.",
       "category": "productivity"
     }
   ]

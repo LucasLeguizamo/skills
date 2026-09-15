@@ -1,7 +1,7 @@
 {
   "name": "lucas-leguizamo-skills",
   "version": "0.2.0",
-  "description": "Lucas Leguizamo's own Claude Code set: the skills he wrote (knowledge graphs, product discovery and PRDs, SEO content, publishable diagrams) and the twelve agents that build, review and QA lucasleguizamo.com — art direction, design-system enforcement, WebGL/motion, SEO, performance, bug hunting, bilingual copy, site reverse-engineering and skill authoring.",
+  "description": "Engineering standard and skills for builders who ship with AI agents: AGENTS.md as the contract, PR discipline with a named human approver, runnable checks, agent delegation, PRDs and product discovery, knowledge graphs, SEO content and publishable diagrams.",
   "author": {
     "name": "Lucas Leguizamo",
     "url": "https://lucasleguizamo.com"
@@ -10,18 +10,25 @@
   "homepage": "https://github.com/lucasleguizamo/skills",
   "repository": "https://github.com/lucasleguizamo/skills",
   "keywords": [
-    "skills",
-    "agents",
-    "claude-code",
-    "knowledge-graph",
-    "product-management",
+    "ai-agents",
+    "agentic-workflows",
+    "agent-skills",
+    "agents-md",
+    "engineering-standards",
+    "best-practices",
+    "code-review",
+    "pull-request",
+    "conventional-commits",
     "prd",
+    "product-management",
+    "knowledge-graph",
     "seo",
-    "content",
     "diagrams",
-    "webgl",
-    "design-system",
-    "web-design",
+    "claude-code",
+    "codex",
+    "cursor",
+    "gemini",
+    "developer-tools",
     "spanish",
     "latam"
   ]

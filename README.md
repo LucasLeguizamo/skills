@@ -1,12 +1,47 @@
-# skills
+# skills — an engineering standard for building with AI agents
 
-Skills, agents and an engineering standard by
-[Lucas Leguizamo](https://lucasleguizamo.com) — packaged so **any** coding agent
-can install them, not only Claude Code.
+[![Works with Claude Code, Codex, Cursor, Devin and Gemini](https://img.shields.io/badge/harnesses-claude%20%C2%B7%20codex%20%C2%B7%20cursor%20%C2%B7%20devin%20%C2%B7%20gemini-informational)](#install)
+[![License: MIT](https://img.shields.io/badge/license-MIT-black)](LICENSE)
 
-The skills live in exactly one place, `plugins/lucas-leguizamo-skills/skills/`.
-Each harness gets a thin manifest that points at that directory; nothing is ever
-copied or duplicated. Adding support for another agent means adding a manifest.
+Skills and an **engineering standard** by
+[Lucas Leguizamo](https://lucasleguizamo.com), for builders who ship with AI
+agents. It answers the questions that show up once agents are actually writing
+your code:
+
+- **What stops an agent from inventing its own conventions?** `AGENTS.md` as a
+  single contract every harness reads — one file, not one per vendor.
+- **How do you keep the pace?** A delegation router that sends work by domain
+  instead of by size, a mandatory QA pass each round, and a PR contract that asks
+  for the problem, the alternatives and a **named human approver** — an agent can
+  propose a decision, never approve one.
+- **How do you know a rule holds?** Every rule ships a runnable check. Filenames,
+  API contracts, secrets, the package manager, manifest versions. Rules nobody can
+  run are rules nobody follows.
+- **How do you adopt this in a repo with history?** A ratchet: existing violations
+  go in a debt list that only ever shrinks, so new work complies without a
+  thousand-file cleanup PR.
+- **Where does the product thinking go?** A PM skill that runs discovery through
+  structured questions and comes back with a vision, a prioritized backlog and a
+  PRD — not a wall of text.
+
+Install it into any repo with one command, on any agent.
+
+```bash
+# from a checkout of this repo
+plugins/lucas-leguizamo-skills/skills/harness/init.sh /path/to/your-repo
+plugins/lucas-leguizamo-skills/skills/harness/init.sh /path/to/your-repo --check
+```
+
+It writes `AGENTS.md`, `CLAUDE.md` and `GEMINI.md`, the PR template, the label
+set, the checks and an `.mcp.json` wiring engram
+as the repo's memory — and it never overwrites a file you already have.
+The standard itself is [`STANDARD.md`](plugins/lucas-leguizamo-skills/skills/harness/STANDARD.md):
+twelve rules, each with the repo it was learned in.
+
+The skills live in exactly one place,
+`plugins/lucas-leguizamo-skills/skills/`. Each harness gets a thin manifest that
+points at that directory; nothing is ever copied. Adding support for another
+agent means adding a manifest.
 
 They are written in English so anyone can read and fork them, and they keep their
 Spanish trigger phrases: Lucas works in Spanish, so both languages have to fire
@@ -40,6 +75,7 @@ Every manifest carries the same version, listed in `.version-bump.json`:
 
 | Skill | What it does | Triggers on |
 |---|---|---|
+| `harness` | The engineering standard, installable: `AGENTS.md` contract, PR template and labels, runnable checks, agent roster and delegation router. `init.sh <repo>` installs it, `--check` audits | "set up the standard", "initial setup", "my conventions", "does this repo follow our rules" · el arnés, setup inicial, mi estándar, mis convenciones |
 | `graphify` | Turns any input — code, docs, papers, images, video — into a persistent knowledge graph with god nodes, community detection and query/path/explain tools | "how does this codebase fit together", `/graphify` · cómo se relaciona esto, qué hace este proyecto |
 | `concat-content` | SEO blog articles for CONCAT as JSX ready for `lib/blog-posts.tsx`, plus the cover-image prompt. Articles are written in Spanish | "write a post", "create a blog article", "what post is next" · escribe un post, crea un artículo para el blog, qué post sigue |
 | `pm-agent` | Product discovery through `AskUserQuestion` → vision, prioritized backlog, PRD or sprint plan | "write me a PRD", "build the backlog", "prioritize these features" · hazme un PRD, arma el backlog, prioriza estas features |

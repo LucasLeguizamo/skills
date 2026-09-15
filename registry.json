@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "generatedAt": "2026-09-15T01:33:14.000Z",
+  "generatedAt": "2026-09-15T01:45:38.000Z",
   "marketplace": {
     "name": "lucas",
     "install": "/plugin marketplace add lucasleguizamo/skills"
@@ -227,7 +227,7 @@
       "type": "plugin",
       "name": "lucas-leguizamo-skills",
       "summary": {
-        "en": "Lucas Leguizamo's own Claude Code set: the skills he wrote (knowledge graphs, product discovery and PRDs, SEO content, publishable diagrams) and the twelve agents that build, review and QA lucasleguizamo.com — art direction, design-system enforcement, WebGL/motion, SEO, performance, bug hunting, bilingual copy, site reverse-engineering and skill authoring",
+        "en": "Engineering standard and skills for builders who ship with AI agents: AGENTS.md as the contract, PR discipline with a named human approver, runnable checks, agent delegation, PRDs and product discovery, knowledge graphs, SEO content and publishable diagrams",
         "es": "Las skills de autoría propia de Lucas Leguizamo y los doce agentes que construyen, revisan y prueban lucasleguizamo.com: grafos de conocimiento, descubrimiento de producto y PRDs, contenido SEO, diagramas publicables, dirección de arte, cumplimiento del design system, WebGL/motion, performance y caza de bugs"
       },
       "whenToUse": {
@@ -238,7 +238,7 @@
       "source": "https://github.com/lucasleguizamo/skills/blob/main/plugins/lucas-leguizamo-skills/.claude-plugin/plugin.json",
       "install": "/plugin install lucas-leguizamo-skills@lucas",
       "version": "0.2.0",
-      "updatedAt": "2026-09-15T01:33:14.000Z"
+      "updatedAt": "2026-09-15T01:45:38.000Z"
     },
     {
       "slug": "concat-content",
@@ -281,18 +281,18 @@
       "type": "skill",
       "name": "harness",
       "summary": {
-        "en": "Installs and audits Lucas Leguizamo's engineering standard in any repo — AGENTS.md as the contract, a colocated contract for every public API, a mandatory PR template and labels, local checks before the PR, SemVer plus CHANGELOG, and an agent roster",
-        "es": "Instala y verifica tu estándar de features en cualquier repo: AGENTS.md como contrato, contratos colocados junto a las APIs públicas, plantilla y etiquetado obligatorio de PRs, checks locales antes del PR, SemVer + CHANGELOG y roster de agentes"
+        "en": "Installs and audits an engineering standard for teams building with AI agents — AGENTS.md as the single contract every harness reads (Claude Code, Codex, Cursor, Gemini), a colocated contract for every public API, a mandatory PR template with a named human approver, labels, runnable checks for filenames, secrets, package manager and API docs, SemVer plus CHANGELOG, an agent delegation router and engram for memory",
+        "es": "Instala y audita un estándar de ingeniería para equipos que construyen con agentes de IA: AGENTS.md como el único contrato que leen todos los harnesses, contrato junto a cada API pública, plantilla de PR con aprobador humano nombrado, etiquetas, checks ejecutables, SemVer + CHANGELOG, router de delegación de agentes y engram como memoria"
       },
       "whenToUse": {
-        "en": "Use it when starting a new project, adopting an existing repo, when the user says \"harness\", \"initial setup\", \"the standard\", \"my conventions\", \"arnés\", \"mis convenciones\", or when a repo has no AGENTS.md or pull request template.",
-        "es": "Úsala al arrancar un proyecto nuevo, al adoptar un repo existente, o cuando digas \"arnés\", \"setup inicial\", \"estándar\", \"mis convenciones\" — y cuando un repo no tenga AGENTS.md ni plantilla de PR."
+        "en": "Use it when starting a new project or repo, adopting or auditing an existing one, setting up agent guardrails, writing or fixing AGENTS.md or CLAUDE.md, defining a PR contract or branch protection, or when the user says \"harness\", \"initial setup\", \"the standard\", \"my conventions\", \"best practices\", \"set up the repo\", \"agent rules\", \"arnés\", \"setup inicial\", \"mi estándar\", \"mis convenciones\", \"buenas prácticas\", \"reglas para los agentes\" — or when a repo has no AGENTS.md, no PR template, or rules nobody can run.",
+        "es": "Úsala al arrancar un proyecto, al adoptar o auditar un repo existente, al poner guardarraíles a los agentes, al escribir AGENTS.md o CLAUDE.md, al definir el contrato de PR o la protección de rama — o cuando digas \"arnés\", \"setup inicial\", \"mi estándar\", \"mis convenciones\", \"buenas prácticas\", \"reglas para los agentes\". En repos con historia entra como ratchet: la deuda vieja se cuenta, lo nuevo cumple."
       },
       "category": "productivity",
       "source": "https://github.com/lucasleguizamo/skills/blob/main/plugins/lucas-leguizamo-skills/skills/harness/SKILL.md",
       "install": "/plugin install lucas-leguizamo-skills@lucas",
       "version": "0.2.0",
-      "updatedAt": "2026-09-15T01:33:14.000Z"
+      "updatedAt": "2026-09-15T01:45:38.000Z"
     },
     {
       "slug": "pm-agent",

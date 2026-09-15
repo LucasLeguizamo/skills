@@ -1,6 +1,6 @@
 ---
 name: harness
-description: Installs and audits Lucas Leguizamo's engineering standard in any repo — AGENTS.md as the contract, a colocated contract for every public API, a mandatory PR template and labels, local checks before the PR, SemVer plus CHANGELOG, and an agent roster. Use it when starting a new project, adopting an existing repo, when the user says "harness", "initial setup", "the standard", "my conventions", "arnés", "mis convenciones", or when a repo has no AGENTS.md or pull request template.
+description: Installs and audits an engineering standard for teams building with AI agents — AGENTS.md as the single contract every harness reads (Claude Code, Codex, Cursor, Gemini), a colocated contract for every public API, a mandatory PR template with a named human approver, labels, runnable checks for filenames, secrets, package manager and API docs, SemVer plus CHANGELOG, an agent delegation router and engram for memory. Adopts into repos with history through a debt-list ratchet. Use it when starting a new project or repo, adopting or auditing an existing one, setting up agent guardrails, writing or fixing AGENTS.md or CLAUDE.md, defining a PR contract or branch protection, or when the user says "harness", "initial setup", "the standard", "my conventions", "best practices", "set up the repo", "agent rules", "arnés", "setup inicial", "mi estándar", "mis convenciones", "buenas prácticas", "reglas para los agentes" — or when a repo has no AGENTS.md, no PR template, or rules nobody can run.
 ---
 
 # harness — the initial setup

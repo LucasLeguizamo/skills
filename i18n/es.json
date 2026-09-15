@@ -24,8 +24,8 @@
     "whenToUse": "Úsala para cualquier pregunta sobre un codebase, su arquitectura, las relaciones entre archivos o el contenido de un proyecto — sobre todo si existe graphify-out/, donde la pregunta se trata primero como una consulta a graphify."
   },
   "harness": {
-    "summary": "Instala y verifica tu estándar de features en cualquier repo: AGENTS.md como contrato, contratos colocados junto a las APIs públicas, plantilla y etiquetado obligatorio de PRs, checks locales antes del PR, SemVer + CHANGELOG y roster de agentes",
-    "whenToUse": "Úsala al arrancar un proyecto nuevo, al adoptar un repo existente, o cuando digas \"arnés\", \"setup inicial\", \"estándar\", \"mis convenciones\" — y cuando un repo no tenga AGENTS.md ni plantilla de PR."
+    "summary": "Instala y audita un estándar de ingeniería para equipos que construyen con agentes de IA: AGENTS.md como el único contrato que leen todos los harnesses, contrato junto a cada API pública, plantilla de PR con aprobador humano nombrado, etiquetas, checks ejecutables, SemVer + CHANGELOG, router de delegación de agentes y engram como memoria",
+    "whenToUse": "Úsala al arrancar un proyecto, al adoptar o auditar un repo existente, al poner guardarraíles a los agentes, al escribir AGENTS.md o CLAUDE.md, al definir el contrato de PR o la protección de rama — o cuando digas \"arnés\", \"setup inicial\", \"mi estándar\", \"mis convenciones\", \"buenas prácticas\", \"reglas para los agentes\". En repos con historia entra como ratchet: la deuda vieja se cuenta, lo nuevo cumple."
   },
   "lucas-leguizamo-skills": {
     "summary": "Las skills de autoría propia de Lucas Leguizamo y los doce agentes que construyen, revisan y prueban lucasleguizamo.com: grafos de conocimiento, descubrimiento de producto y PRDs, contenido SEO, diagramas publicables, dirección de arte, cumplimiento del design system, WebGL/motion, performance y caza de bugs"

@@ -1,7 +1,7 @@
 {
   "name": "lucas-leguizamo-skills",
   "version": "0.2.0",
-  "description": "Knowledge graphs, product discovery and PRDs, SEO content, diagrams, and an installable engineering standard.",
+  "description": "Engineering standard and skills for builders who ship with AI agents: AGENTS.md as the contract, PR discipline with a named human approver, runnable checks, agent delegation, PRDs and product discovery, knowledge graphs, SEO content and publishable diagrams.",
   "author": {
     "name": "Lucas Leguizamo",
     "url": "https://lucasleguizamo.com"
@@ -9,6 +9,28 @@
   "homepage": "https://github.com/LucasLeguizamo/skills",
   "repository": "https://github.com/LucasLeguizamo/skills",
   "license": "MIT",
-  "keywords": ["skills", "knowledge-graph", "prd", "seo", "diagrams", "engineering-standard"],
+  "keywords": [
+    "ai-agents",
+    "agentic-workflows",
+    "agent-skills",
+    "agents-md",
+    "engineering-standards",
+    "best-practices",
+    "code-review",
+    "pull-request",
+    "conventional-commits",
+    "prd",
+    "product-management",
+    "knowledge-graph",
+    "seo",
+    "diagrams",
+    "claude-code",
+    "codex",
+    "cursor",
+    "gemini",
+    "developer-tools",
+    "spanish",
+    "latam"
+  ],
   "skills": "./plugins/lucas-leguizamo-skills/skills/"
 }
