@@ -56,6 +56,7 @@ the same skill.
 | **Cursor** | point Cursor at this repo as a plugin source | `.cursor-plugin/plugin.json` |
 | **Devin** | point Devin at this repo as a plugin source | `.devin-plugin/plugin.json` |
 | **Gemini CLI** | install as an extension; context comes from `GEMINI.md` | `gemini-extension.json` |
+| **[skills.sh](https://skills.sh)** | `npx skills add lucasleguizamo/skills` (or `--skill sdf-character` for one) | `plugins/lucas-leguizamo-skills/skills/*/SKILL.md` |
 | **Anything else** | clone the repo and point the agent at `plugins/lucas-leguizamo-skills/skills/` | `.agents/plugins/marketplace.json` |
 
 Update on Claude Code with `/plugin update lucas-leguizamo-skills`.
@@ -80,6 +81,7 @@ Every manifest carries the same version, listed in `.version-bump.json`:
 | `concat-content` | SEO blog articles for CONCAT as JSX ready for `lib/blog-posts.tsx`, plus the cover-image prompt. Articles are written in Spanish | "write a post", "create a blog article", "what post is next" · escribe un post, crea un artículo para el blog, qué post sigue |
 | `pm-agent` | Product discovery through `AskUserQuestion` → vision, prioritized backlog, PRD or sprint plan | "write me a PRD", "build the backlog", "prioritize these features" · hazme un PRD, arma el backlog, prioriza estas features |
 | `whiteboard` | Diagrams, flows and wireframes in Excalidraw style, generated from code and published to a private site (nginx + TLS + secret-token URL) | "make me a diagram", "draw the flow", "publish it on a page" · hazme un diagrama, dibuja el flujo, publícalo en una página |
+| `sdf-character` | Animated 3D characters for the web as a raymarched SDF in one WGSL pass on vgpu (WebGPU): spring-driven motion, an a11y-safe React client, a headless render harness and an adversarial judge loop. Ships a working walker template | "bring our mascot to life in 3D", "make a 3D walking character" · dale vida a la mascota en 3D, haz un personaje 3D que camine |
 
 ### Agents
 

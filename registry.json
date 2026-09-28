@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "generatedAt": "2026-09-15T01:45:38.000Z",
+  "generatedAt": "2026-09-28T01:21:57.234Z",
   "marketplace": {
     "name": "lucas",
     "install": "/plugin marketplace add lucasleguizamo/skills"
@@ -238,7 +238,7 @@
       "source": "https://github.com/lucasleguizamo/skills/blob/main/plugins/lucas-leguizamo-skills/.claude-plugin/plugin.json",
       "install": "/plugin install lucas-leguizamo-skills@lucas",
       "version": "0.2.0",
-      "updatedAt": "2026-09-15T01:45:38.000Z"
+      "updatedAt": "2026-09-15T01:48:32.000Z"
     },
     {
       "slug": "concat-content",
@@ -292,7 +292,7 @@
       "source": "https://github.com/lucasleguizamo/skills/blob/main/plugins/lucas-leguizamo-skills/skills/harness/SKILL.md",
       "install": "/plugin install lucas-leguizamo-skills@lucas",
       "version": "0.2.0",
-      "updatedAt": "2026-09-15T01:45:38.000Z"
+      "updatedAt": "2026-09-15T01:48:32.000Z"
     },
     {
       "slug": "pm-agent",
@@ -311,6 +311,24 @@
       "install": "/plugin install lucas-leguizamo-skills@lucas",
       "version": "0.2.0",
       "updatedAt": "2026-09-07T05:28:38.000Z"
+    },
+    {
+      "slug": "sdf-character",
+      "type": "skill",
+      "name": "sdf-character",
+      "summary": {
+        "en": "Build an animated 3D character or mascot for a web page as a raymarched signed distance field in one WGSL pass on vgpu (WebGPU) — no mesh, no Blender, no three.js — with spring-driven motion and an adversarial judge loop",
+        "es": "Personajes 3D animados para la web como un SDF raymarcheado en un solo pase WGSL sobre vgpu (WebGPU): movimiento con resortes, cliente React accesible, harness de render headless y ciclo de jueces adversarios. Incluye una plantilla de caminante que funciona"
+      },
+      "whenToUse": {
+        "en": "Use when the user says \"bring our mascot to life in 3D\", \"animate this character on the page\", \"make a 3D walking character with WebGPU\", \"improve how the character moves\", or dale vida a la mascota en 3D / anima este personaje en la web / haz un personaje 3D que camine / mejora cómo se mueve el personaje.",
+        "es": "Úsala cuando el usuario diga \"dale vida a la mascota en 3D\", \"anima este personaje en la web\", \"haz un personaje 3D que camine\", \"mejora cómo se mueve el personaje\", o bring our mascot to life in 3D / make a 3D walking character with WebGPU."
+      },
+      "category": "productivity",
+      "source": "https://github.com/lucasleguizamo/skills/blob/main/plugins/lucas-leguizamo-skills/skills/sdf-character/SKILL.md",
+      "install": "/plugin install lucas-leguizamo-skills@lucas",
+      "version": "0.2.0",
+      "updatedAt": "2026-09-28T01:21:57.234Z"
     },
     {
       "slug": "whiteboard",
