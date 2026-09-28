@@ -42,6 +42,10 @@
     "summary": "QA a nivel navegador: levanta el preview, revisa errores de consola y de red, verifica ambos idiomas, viewports móvil y escritorio, animaciones, y deja screenshots de prueba",
     "whenToUse": "Úsalo DESPUÉS de cualquier cambio visible; o cuando el usuario diga verifica, prueba, QA, \"revisa que todo funcione\"."
   },
+  "sdf-character": {
+    "summary": "Personajes 3D animados para la web como un SDF raymarcheado en un solo pase WGSL sobre vgpu (WebGPU): movimiento con resortes, cliente React accesible, harness de render headless y ciclo de jueces adversarios. Incluye una plantilla de caminante que funciona",
+    "whenToUse": "Úsala cuando el usuario diga \"dale vida a la mascota en 3D\", \"anima este personaje en la web\", \"haz un personaje 3D que camine\", \"mejora cómo se mueve el personaje\", o bring our mascot to life in 3D / make a 3D walking character with WebGPU."
+  },
   "seo-portfolio": {
     "summary": "Especialista SEO + GEO del portafolio bilingüe: metadata, structured data, hreflang, Core Web Vitals, citabilidad por IA y SEO de entidad de marca personal",
     "whenToUse": "Invócalo cuando el usuario mencione SEO, posicionamiento, rankings, AI Overviews, schema, sitemap, metadata o visibilidad en Google."
