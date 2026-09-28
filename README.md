@@ -98,9 +98,9 @@ character, the first and last taken with
 
 ![Finn's turnaround rendered as an SDF on vgpu](plugins/lucas-leguizamo-skills/skills/sdf-character/examples/finn-turnaround.webp)
 
-**The animation as it shipped**, live in the browser on WebGPU:
+**The animation as it shipped**, live in the browser on WebGPU: he walks to the middle, turns and waves hola.
 
-![Finn walking across the Emihs footer](plugins/lucas-leguizamo-skills/skills/sdf-character/examples/finn-live-walk.webp)
+![Finn reaching the middle of the Emihs footer and waving](plugins/lucas-leguizamo-skills/skills/sdf-character/examples/finn-live-wave.webp)
 
 Shape fidelity 84.7/100 against the turnaround; motion 38 → 86/100 across
 seven rounds of an adversarial judge. Every round, what it fixed, how it was

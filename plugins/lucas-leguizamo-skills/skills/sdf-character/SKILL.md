@@ -147,7 +147,8 @@ independent judges:
    headed and with `--args "--enable-unsafe-webgpu"`: a burst of screenshots
    for the motion, and the turnaround shot the same way for the side by
    side. `agent-browser record` opens a context without WebGPU and captures
-   an empty stage. The exact commands are in `examples/finn.md`.
+   an empty stage. For fast motion (a wave, a blink) wrap `performance.now()`
+   to slow the page's clock to 1/10 and shoot every frame. The exact commands are in `examples/finn.md`.
 5. Commit each accepted fix with its measured before and after (jerk, px/s of
    foot slide, clearance) and its live capture, and add an assertion to the
    check for anything that regressed once.
