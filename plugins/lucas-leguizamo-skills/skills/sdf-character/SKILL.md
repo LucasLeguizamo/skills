@@ -142,9 +142,16 @@ independent judges:
    robotic or wrong against real gait references, using the frames and the
    curves. Fix its top finding, then re-judge. Stop when it says what remains
    is a rig limit.
-4. Commit each accepted fix with its measured before and after (jerk, px/s of
-   foot slide, clearance), and add an assertion to the check for anything
-   that regressed once.
+4. **Live capture**: the harness proves the shader, not the page. Once the
+   stage is mounted, capture it in a real browser with `agent-browser`,
+   headed and with `--args "--enable-unsafe-webgpu"`: a burst of screenshots
+   for the motion, and the turnaround shot the same way for the side by
+   side. `agent-browser record` opens a context without WebGPU and captures
+   an empty stage. For fast motion (a wave, a blink) wrap `performance.now()`
+   to slow the page's clock to 1/10 and shoot every frame. The exact commands are in `examples/finn.md`.
+5. Commit each accepted fix with its measured before and after (jerk, px/s of
+   foot slide, clearance) and its live capture, and add an assertion to the
+   check for anything that regressed once.
 
 ## Mistakes that cost time
 
@@ -164,5 +171,6 @@ independent judges:
 > Build `<Name>` as an SDF character on vgpu following the `sdf-character`
 > skill. Turnaround: `<path>`. Stage: `<where, W×H px>`. Behaviour: `<walk /
 > idle / wave / look at cursor>`. Done means: fidelity judge ≥ 80, motion
-> judge ≥ 80, the motion check green, and an accessibility pass on the
-> toggle. Commit each accepted judge fix with its measured before and after.
+> judge ≥ 80, the motion check green, an accessibility pass on the toggle,
+> and a live `agent-browser` capture beside the turnaround. Commit each
+> accepted judge fix with its measured before and after.

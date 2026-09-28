@@ -6,19 +6,21 @@ description: Installs and audits an engineering standard for teams building with
 # harness — the initial setup
 
 `STANDARD.md`, next to this file, is the law. This skill only installs and audits it.
+`<skill>` is the folder holding this file (`${CLAUDE_PLUGIN_ROOT}/skills/harness` when
+installed as a Claude Code plugin).
 
 ## Install into a repo
 
 ```bash
-skills/harness/init.sh <repo-path>        # idempotent; never overwrites what exists
-skills/harness/init.sh <repo-path> --dry-run
+<skill>/init.sh <repo-path>        # idempotent; never overwrites what exists
+<skill>/init.sh <repo-path> --dry-run
 ```
 
 It leaves: `AGENTS.md` (the contract), `CLAUDE.md` and `GEMINI.md` (pointers), `.github/`
 (PR template, `labels.yml`, `labeler.yml`, the `pr-labels` workflow),
 `scripts/check-*.sh`, `scripts/sync-labels.sh`, and — only if absent —
 a `.claude/settings.json` carrying the hook that blocks an API route with no
-contract, plus a `.mcp.json` wiring engram as the repo's memory.
+contract (it passes when the repo has no `check-api-docs.sh`), plus a `.mcp.json` wiring engram as the repo's memory.
 
 Then **fill in the `<TODO>`s in `AGENTS.md`** with what the repo actually is: folder
 map, stack, commands, sources of truth, agent roster. A contract with `<TODO>` in it
@@ -29,7 +31,7 @@ With `gh` authenticated, `./scripts/sync-labels.sh` creates the labels on GitHub
 ## Audit a repo
 
 ```bash
-skills/harness/init.sh <repo-path> --check   # lists what is missing, exits 1 if anything is
+<skill>/init.sh <repo-path> --check   # lists what is missing, exits 1 if anything is
 ```
 
 ## Rules for using it

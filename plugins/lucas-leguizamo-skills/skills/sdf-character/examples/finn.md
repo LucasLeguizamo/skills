@@ -10,12 +10,99 @@ repository, so it is not published here. This page is the record of what was
 built, how it scored and what each iteration fixed, with the key fragments
 inlined.
 
+## From reference to the page
+
+Three stages, same character: what the brand handed over, what the shader
+renders headless, and Finn live on the landing page.
+
+**1. The original render.** The brand's turnaround, and the only thing the
+fidelity judge scores against:
+
+![Finn's original turnaround from the brand: front, three-quarter, right profile, back, left profile](finn-reference.webp)
+
+**2. The SDF render.** The same five views from `render-harness.mjs` pointed
+at Finn's shader, then one gait cycle and the wave. No browser, vgpu on Node:
+
 ![Finn's turnaround rendered by the headless harness: front, three-quarter, profile, back, profile](finn-turnaround.webp)
 
 ![Finn walking (six frames of one gait cycle) and waving](finn-walk-and-wave.webp)
 
-Both strips come straight from `render-harness.mjs` pointed at Finn's shader:
-no browser, vgpu on Node.
+**3. The animation as it shipped.** The footer of the Emihs landing, in a
+real browser on WebGPU, captured with `agent-browser`. Finn walks to the
+middle of the stage, turns to the viewer and waves hola. The walk is cut
+short and played at 2×; the wave runs at real speed:
+
+![Finn reaching the middle of the Emihs footer, turning and waving, captured live in the browser](finn-live-wave.webp)
+
+![Three close frames of Finn mid-stride in the browser](finn-live-stills.webp)
+
+### How those captures were taken
+
+Stages 1 and 3 came from
+[`agent-browser`](https://github.com/vercel-labs/agent-browser), so they can
+be retaken after any change and dropped into the PR as before/after.
+
+The original render is one screenshot of a throwaway page holding the
+turnaround:
+
+```bash
+agent-browser --session ref --allow-file-access batch \
+  "set viewport 1800 332 1" "open file://$PWD/ref.html" "wait 800" "screenshot ref.png"
+```
+
+The wave is the hard part. Screenshots come out about every 0.5 s and the
+hand beats 2.7 times a second, so a real-time burst catches two frames of it.
+The fix is **virtual time**: FinnWalker takes its `dt` from
+`performance.now()`, so wrapping that clock from outside slows the whole sim
+and shader without touching the app. Run in real time until he nears the
+middle, then drop to 1/10 speed and shoot every frame:
+
+```bash
+ab() { agent-browser --session finn "$@"; }
+ab --headed --args "--enable-unsafe-webgpu" batch \
+  "set viewport 1440 900 2" "open http://localhost:3000" "wait 1500"
+ab eval --stdin <<'EOF'
+(() => {
+  const real = performance.now.bind(performance);
+  let base = real(), vbase = base; window.__k = 1;
+  window.__setK = (k) => { vbase = performance.now(); base = real(); window.__k = k; };
+  performance.now = () => vbase + (real() - base) * window.__k;
+  window.scrollTo(0, document.body.scrollHeight);
+})()
+EOF
+X='(() => { const c = document.querySelector(".finn-walk canvas").getBoundingClientRect(); return Math.round(c.x + c.width / 2) })()'
+until [ "$(ab eval "$X" | tr -d '"')" -ge 640 ]; do sleep 0.3; done   # nearly halfway
+ab eval 'window.__setK(0.1)'
+for i in $(seq -w 1 220); do                                           # ~0.05 s of sim per frame
+  x=$(ab eval "$X" | tr -d '"'); ab screenshot "w_$i.png"; echo "$i $x" >> log.txt
+  [ "$x" -ge 790 ] && break                                            # walked off after the wave
+done
+```
+
+`log.txt` holds Finn's x per frame: where it stops changing is the wave. Keep
+every other frame of the walk (2×) and every frame of the wave, crop around
+the stage centre and loop at 48 ms a frame, which is real time at 1/10 speed:
+
+```bash
+img2webp -loop 0 -d 48 -lossy -q 60 -m 6 o_*.png -o finn-live-wave.webp
+```
+
+Before trusting a capture, ask the page whether WebGPU is actually up.
+Without it the stage renders nothing, which is the correct behaviour and an
+empty screenshot:
+
+```bash
+agent-browser --session finn eval '(async () => !!(await navigator.gpu?.requestAdapter()))()'
+```
+
+Two more things that cost time:
+
+- **`agent-browser record` does not work here.** It records in a fresh
+  context that comes up without WebGPU, so Finn is missing from the video.
+  Screenshots from the headed session are the capture that works.
+- **Close-ups need the canvas rect at the moment of the shot.** Finn covers
+  about 28 px a second, so read the canvas's `getBoundingClientRect()` right
+  before each screenshot and crop around it, at a 2× viewport scale.
 
 ## What he is made of
 
