@@ -14,6 +14,10 @@ against the character's turnaround sheet and motion went from 38 to 86/100
 under an adversarial judge. The last points were rig limits (no knees, no
 cloth simulation), not tuning — know that ceiling before promising more.
 
+**Read [`examples/finn.md`](examples/finn.md) first**: the worked case of
+that mascot, with renders, the score after every judge round, what each round
+fixed and how it was measured, and the fragments that mattered most.
+
 For vgpu API details, use the project's installed docs (`pnpm exec vgpu docs
 cat getting-started.md`) or the `vgpu` skill (`npx skills add vercel-labs/vgpu`).
 This skill is the method, not the API.
