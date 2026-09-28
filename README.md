@@ -70,7 +70,7 @@ Every manifest carries the same version, listed in `.version-bump.json`:
 `./scripts/bump-version.sh <version>` moves them together and
 `./scripts/check-versions.sh` fails when one drifts.
 
-## What `lucas-leguizamo-skills` ships (v0.2.0)
+## What `lucas-leguizamo-skills` ships (v0.3.0)
 
 ### Skills
 
@@ -82,6 +82,30 @@ Every manifest carries the same version, listed in `.version-bump.json`:
 | `pm-agent` | Product discovery through `AskUserQuestion` → vision, prioritized backlog, PRD or sprint plan | "write me a PRD", "build the backlog", "prioritize these features" · hazme un PRD, arma el backlog, prioriza estas features |
 | `whiteboard` | Diagrams, flows and wireframes in Excalidraw style, generated from code and published to a private site (nginx + TLS + secret-token URL) | "make me a diagram", "draw the flow", "publish it on a page" · hazme un diagrama, dibuja el flujo, publícalo en una página |
 | `sdf-character` | Animated 3D characters for the web as a raymarched SDF in one WGSL pass on vgpu (WebGPU): spring-driven motion, an a11y-safe React client, a headless render harness and an adversarial judge loop. Ships a working walker template | "bring our mascot to life in 3D", "make a 3D walking character" · dale vida a la mascota en 3D, haz un personaje 3D que camine |
+
+### Showcase: `sdf-character` and Finn
+
+Finn is the mascot of [Emihs](https://emihs.co). He was built with this skill,
+and the skill was distilled from building him. Three captures of the same
+character, the first and last taken with
+[`agent-browser`](https://github.com/vercel-labs/agent-browser):
+
+**The original render**, the brand's turnaround and what the fidelity judge scores against:
+
+![Finn's original turnaround](plugins/lucas-leguizamo-skills/skills/sdf-character/examples/finn-reference.webp)
+
+**The SDF render**, the same views from the skill's headless harness, one WGSL pass, no mesh:
+
+![Finn's turnaround rendered as an SDF on vgpu](plugins/lucas-leguizamo-skills/skills/sdf-character/examples/finn-turnaround.webp)
+
+**The animation as it shipped**, live in the browser on WebGPU:
+
+![Finn walking across the Emihs footer](plugins/lucas-leguizamo-skills/skills/sdf-character/examples/finn-live-walk.webp)
+
+Shape fidelity 84.7/100 against the turnaround; motion 38 → 86/100 across
+seven rounds of an adversarial judge. Every round, what it fixed, how it was
+measured and the capture commands are in the
+[case study](plugins/lucas-leguizamo-skills/skills/sdf-character/examples/finn.md).
 
 ### Agents
 

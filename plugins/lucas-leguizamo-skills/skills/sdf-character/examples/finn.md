@@ -10,12 +10,69 @@ repository, so it is not published here. This page is the record of what was
 built, how it scored and what each iteration fixed, with the key fragments
 inlined.
 
+## From reference to the page
+
+Three stages, same character: what the brand handed over, what the shader
+renders headless, and Finn live on the landing page.
+
+**1. The original render.** The brand's turnaround, and the only thing the
+fidelity judge scores against:
+
+![Finn's original turnaround from the brand: front, three-quarter, right profile, back, left profile](finn-reference.webp)
+
+**2. The SDF render.** The same five views from `render-harness.mjs` pointed
+at Finn's shader, then one gait cycle and the wave. No browser, vgpu on Node:
+
 ![Finn's turnaround rendered by the headless harness: front, three-quarter, profile, back, profile](finn-turnaround.webp)
 
 ![Finn walking (six frames of one gait cycle) and waving](finn-walk-and-wave.webp)
 
-Both strips come straight from `render-harness.mjs` pointed at Finn's shader:
-no browser, vgpu on Node.
+**3. The animation as it shipped.** The footer of the Emihs landing, in a
+real browser on WebGPU, captured with `agent-browser`:
+
+![Finn walking across the Emihs footer, captured live in the browser](finn-live-walk.webp)
+
+![Three close frames of Finn mid-stride in the browser](finn-live-stills.webp)
+
+### How those captures were taken
+
+Stages 1 and 3 came from
+[`agent-browser`](https://github.com/vercel-labs/agent-browser), so they can
+be retaken after any change and dropped into the PR as before/after.
+
+```bash
+# 1. the original render: a throwaway page holding the turnaround, one shot
+agent-browser --session ref --allow-file-access batch \
+  "set viewport 1800 332 1" "open file://$PWD/ref.html" "wait 800" "screenshot ref.png"
+
+# 3. the live animation: headed, WebGPU on
+agent-browser --session finn --headed --args "--enable-unsafe-webgpu" batch \
+  "set viewport 1440 900 1" "open http://localhost:3000" "wait 1500"
+agent-browser --session finn eval 'window.scrollTo(0, document.body.scrollHeight)'
+for i in $(seq -w 1 60); do agent-browser --session finn screenshot "b_$i.png"; done
+
+# crop the footer band and loop it
+ffmpeg -pattern_type glob -i 'b_*.png' -vf "crop=1440:330:0:570,scale=960:-1" c_%02d.png
+img2webp -loop 0 -d 240 -lossy -q 70 c_*.png -o finn-live-walk.webp
+```
+
+Before trusting a capture, ask the page whether WebGPU is actually up.
+Without it the stage renders nothing, which is the correct behaviour and an
+empty screenshot:
+
+```bash
+agent-browser --session finn eval '(async () => !!(await navigator.gpu?.requestAdapter()))()'
+```
+
+Two things that cost time:
+
+- **`agent-browser record` does not work here.** It records in a fresh
+  context that comes up without WebGPU, so Finn is missing from the video. A
+  burst of screenshots from the headed session works: 60 frames take about
+  14 s, close to real time at 4 fps.
+- **Close-ups need the canvas rect at the moment of the shot.** Finn covers
+  about 50 px a second, so read the canvas's `getBoundingClientRect()` right
+  before each screenshot and crop around it, at a 2× viewport scale.
 
 ## What he is made of
 

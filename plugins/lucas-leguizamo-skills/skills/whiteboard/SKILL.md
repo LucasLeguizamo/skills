@@ -33,6 +33,10 @@ assets/       kalam-400.woff2 (the handwriting typeface)
 
 The **content** lives in the working repo, not in the skill.
 
+`<skill>` below is the folder holding this `SKILL.md`. Installed as a plugin it
+lives in the plugin cache (`${CLAUDE_PLUGIN_ROOT}/skills/whiteboard` in Claude Code),
+not in `~/.claude/skills/`, so never hard-code that path.
+
 ---
 
 ## 1. Projects — READ THIS BEFORE DRAWING
@@ -106,12 +110,12 @@ Rules that avoid collisions:
 cd <repo>/whiteboard
 
 # only YOUR project — leaves other sessions untouched
-python3 ~/.claude/skills/whiteboard/build.py --project campaigns
+python3 <skill>/build.py --project campaigns
 #   ✓ campaigns: 9 boards (1215 KB)
 #   · backend: untouched
 
 # everything (use it when you changed the engine or want to refresh the whole landing)
-python3 ~/.claude/skills/whiteboard/build.py
+python3 <skill>/build.py
 ```
 
 `--project` is the default mode when working in parallel: it rebuilds your folder and
@@ -160,8 +164,8 @@ sc.frame(x, y, w, h, title="", tint="#f8f9fa")        # dashed container (lanes,
 
 ```bash
 cd <repo>/whiteboard
-~/.claude/skills/whiteboard/publish.sh --cert   # first time
-~/.claude/skills/whiteboard/publish.sh          # re-deploys
+<skill>/publish.sh --cert   # first time
+<skill>/publish.sh          # re-deploys
 # → https://<YOUR-IP-WITH-DASHES>.sslip.io:<PORT>/<TOKEN>/
 ```
 

@@ -10,7 +10,7 @@
     {
       "name": "lucas-leguizamo-skills",
       "source": "./plugins/lucas-leguizamo-skills",
-      "description": "Engineering standard and skills for builders who ship with AI agents: AGENTS.md as the contract, PR discipline with a named human approver, runnable checks, agent delegation, PRDs and product discovery, knowledge graphs, SEO content and publishable diagrams.",
+      "description": "Engineering standard and skills for builders who ship with AI agents: AGENTS.md as the contract, PR discipline with a named human approver, runnable checks, agent delegation, PRDs and product discovery, knowledge graphs, SEO content, publishable diagrams and animated 3D characters on WebGPU.",
       "category": "productivity"
     }
   ]
