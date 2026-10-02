@@ -66,6 +66,10 @@
     "summary": "Autor y curador de agent skills, subagentes y plugins de Claude Code con el estándar de plugins/marketplace, para que toda la colección se actualice con un solo comando",
     "whenToUse": "Úsalo cuando el usuario diga skill, agente, plugin, marketplace, destilar, empaquetar, \"conviértelo en skill\", \"mis skills están sueltas\", hable de su setup de ~/.claude, o distill / package / \"turn this into a skill\"."
   },
+  "social-content-30x": {
+    "summary": "Sistema de contenido orgánico para Instagram y TikTok destilado de las 12 sesiones del programa 30X Hub: volumen con estructura, copiar formatos probados, ganchos, retención, pilares y series, storytelling, embudo orgánico de ventas, avatares con IA y armado de equipo",
+    "whenToUse": "Úsala para planear el calendario de contenido, buscar y deconstruir referentes, escribir ganchos y guiones, diagnosticar una cuenta sin alcance o vender con contenido — o cuando digas \"estrategia de contenido\", \"guion para TikTok\", \"por qué no tengo alcance\", \"formatos virales\", \"pilares de contenido\", \"embudo orgánico\"."
+  },
   "webgl-motion": {
     "summary": "Especialista WebGL/GLSL: dueño del escenario global —el campo de Stable Fluids, el pase compuesto, la sincronía DOM↔plano, el presupuesto de texturas, el costo de GPU y el gating que lo apaga en táctil y reduced-motion",
     "whenToUse": "Invócalo cuando el usuario mencione WebGL, three.js, shader, GLSL, fluido, cursor, distorsión, FBO, canvas, GPU, o \"se siente pesado\"."
